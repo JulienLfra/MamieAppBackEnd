@@ -2,6 +2,9 @@ package com.mamie.backend;
 
 import com.mamie.backend.model.Famille;
 import com.mamie.backend.repository.FamilleRepository;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +25,11 @@ public class BackEndApplication {
 	public static void main(String[] args) throws Exception {
 
 		SpringApplication.run(BackEndApplication.class, args);
+	}
+
+	@Bean
+	public Driver neo4jDriver() {
+		return GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic( "neo4j", "admin" ));
 	}
 
 	@Bean
