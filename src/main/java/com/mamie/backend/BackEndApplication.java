@@ -1,7 +1,9 @@
 package com.mamie.backend;
 
 import com.mamie.backend.model.Famille;
+import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.FamilleRepository;
+import com.mamie.backend.repository.PersonneRepository;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.GraphDatabase;
@@ -33,7 +35,7 @@ public class BackEndApplication {
 	}
 
 	@Bean
-	CommandLineRunner demo(FamilleRepository familleRepository) {
+	CommandLineRunner demo(FamilleRepository familleRepository, PersonneRepository personneRepository) {
 		return args -> {
 
 			familleRepository.deleteAll();
@@ -66,6 +68,26 @@ public class BackEndApplication {
 //
 			log.info("Lookup each person by name...");
 			log.info("\t" + familleRepository.findAll());
+
+			personneRepository.deleteAll();
+
+			Personne plaideauG = new Personne("Plaideau","Guillaume");
+			Personne bozonG = new Personne("Bozon","Guillaume");
+			Personne molinetB = new Personne("Molinet","Benjamin");
+
+			List<Personne> teamP = Arrays.asList(plaideauG, bozonG, molinetB);
+
+			log.info("Before linking up with Neo4j...");
+
+			teamP.stream().forEach(personne -> log.info("\t" + personne.toString()));
+
+			personneRepository.save(plaideauG);
+			personneRepository.save(bozonG);
+			personneRepository.save(molinetB);
+
+			log.info("Lookup each person by name...");
+			log.info("\t" + personneRepository.findAll());
+
 		};
 	}
 
