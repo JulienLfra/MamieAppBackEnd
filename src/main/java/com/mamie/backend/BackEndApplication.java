@@ -65,8 +65,7 @@ public class BackEndApplication {
 			// We already know craig works with roy and greg
 //
 			log.info("Lookup each person by name...");
-			team.stream().forEach(person -> log.info(
-					"\t" + familleRepository.findAll()));
+			log.info("\t" + familleRepository.findAll());
 		};
 	}
 
