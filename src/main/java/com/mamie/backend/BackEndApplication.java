@@ -1,6 +1,7 @@
 package com.mamie.backend;
 
 import com.mamie.backend.model.Famille;
+import com.mamie.backend.model.Membre;
 import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.FamilleRepository;
 import com.mamie.backend.repository.PersonneRepository;
@@ -15,7 +16,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -71,9 +76,11 @@ public class BackEndApplication {
 
 			personneRepository.deleteAll();
 
-			Personne plaideauG = new Personne("Plaideau","Guillaume");
-			Personne bozonG = new Personne("Bozon","Guillaume");
-			Personne molinetB = new Personne("Molinet","Benjamin");
+
+
+			Personne plaideauG = new Personne(1L,"Plaideau","Guillaume", new Date("21/09/1996"),23);
+			Personne bozonG = new Personne(2L,"Bozon","Guillaume");
+			Personne molinetB = new Personne(3L,"Molinet","Benjamin");
 
 			List<Personne> teamP = Arrays.asList(plaideauG, bozonG, molinetB);
 
@@ -87,6 +94,10 @@ public class BackEndApplication {
 
 			log.info("Lookup each person by name...");
 			log.info("\t" + personneRepository.findAll());
+
+			Membre plaideauGuillaume = new Membre();
+			plaideauGuillaume.setFamille(plaideau);
+			plaideauGuillaume.setPersonne(plaideauG);
 
 		};
 	}

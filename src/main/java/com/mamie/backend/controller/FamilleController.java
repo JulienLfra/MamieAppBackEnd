@@ -1,12 +1,14 @@
 package com.mamie.backend.controller;
 
 import com.mamie.backend.model.Famille;
+import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.FamilleRepository;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.Session;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,12 +25,20 @@ public class FamilleController {
 
 
     @GetMapping(path = "/familles", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getFamillesName() {
+    public List<Famille> getFamillesName() {
 
-        try (Session session = driver.session()) {
-            return session.run("MATCH (f:Famille) RETURN f ORDER BY f.name ASC")
-                    .list(r -> r.get("f").asNode().get("name").asString());
+        Iterable<Famille> f = familleRepository.findAll();
+        List<Famille> familles = new ArrayList<>();
+        for (Famille famille : f) {
+            familles.add(famille);
         }
+        return familles;
+    }
+
+    @GetMapping(path = "/famille", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Famille getPersonneName(@RequestParam String name) {
+
+        return familleRepository.findByName(name);
     }
 
     @PutMapping(path ="/famille")
