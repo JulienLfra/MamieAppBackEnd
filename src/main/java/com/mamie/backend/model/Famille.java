@@ -3,6 +3,9 @@ package com.mamie.backend.model;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
+import java.util.List;
 
 @NodeEntity
 public class Famille {
@@ -33,4 +36,7 @@ public class Famille {
         this.name = name;
     }
 
+
+    @Relationship(type="MEMBER", direction = Relationship.INCOMING)
+    private List<Membre> membres;
 }

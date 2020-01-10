@@ -7,8 +7,10 @@ import org.neo4j.driver.Session;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class PersonneController {
 
@@ -23,21 +25,29 @@ public class PersonneController {
 
 
     @GetMapping(path = "/personnes", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getPersonnesName() {
+    public List<Personne> getPersonnesName() {
 
-        try (Session session = driver.session()) {
-            return session.run("MATCH (p:Personne) RETURN p ORDER BY p.lastName ASC")
-                    .list(r -> r.get("p").asNode().get("lastName").asString());
+        Iterable<Personne> p = personneRepository.findAll();
+        List<Personne> persons = new ArrayList<>();
+        for (Personne person : p) {
+            persons.add(person);
         }
+        return persons;
+    }
+
+    @GetMapping(path = "/personne", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Personne getPersonneName(@RequestParam String lastName, @RequestParam String firstName) {
+
+        return personneRepository.findByLastNameAndAndFirstName(lastName,firstName);
     }
 
     @PutMapping(path ="/personne")
-    public void addFamille(@RequestBody Personne personne) {
+    public void addPersonne(@RequestBody Personne personne) {
         personneRepository.save(personne);
     }
 
     @DeleteMapping(path="/personne")
-    public void deleteFamille(@RequestBody Personne personne) throws Exception {
+    public void deletePersonne(@RequestBody Personne personne) throws Exception {
         if (!isSaveInDataBase(personne)) {
             throw new Exception("La personne n'existe pas!");
         }
