@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface FamilleRepository extends Neo4jRepository<Famille, Long> {
 
-    Famille findByName(@Param("name") String name);
-    boolean existsByName (@Param("name") String name);
+    Famille findByNom(@Param("nom") String nom);
+    boolean existsByNom (@Param("nom") String nom);
 }
