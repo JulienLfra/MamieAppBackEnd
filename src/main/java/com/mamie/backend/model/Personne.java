@@ -5,6 +5,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import javax.validation.constraints.Email;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -16,10 +17,17 @@ public class Personne {
     @GeneratedValue
     private Long id;
 
-    private String lastName;
-    private String firstName;
+    private String nom;
+    private String prenom;
+    @Email
+    private String mail;
     private Date dateDeNaissance;
-    private String Ville;
+    private String ville;
+    private String pays;
+    private String photo;
+    private String profession;
+    private String diplome;
+    private String statut;
     private int age;
 
 
@@ -28,42 +36,72 @@ public class Personne {
     }
 
 
-    public Personne(Long id, String lastName, String firstName) {
-//        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public Personne(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
     }
 
-    public Personne(Long id, String lastName, String firstName, Date dateDeNaissance, int age) {
-//        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public Personne(String nom, String prenom, Date dateDeNaissance, int age) {
+        this.nom = nom;
+        this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
         this.age = age;
     }
 
-    public Long getId() {
-        return id;
+    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.dateDeNaissance = dateDeNaissance;
+        this.ville = ville;
+        this.pays = pays;
+        this.photo = photo;
+        this.profession = profession;
+        this.diplome = diplome;
+        this.statut = statut;
+        this.age = age;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Personne{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", mail='" + mail + '\'' +
+                ", dateDeNaissance=" + dateDeNaissance +
+                ", ville='" + ville + '\'' +
+                ", pays='" + pays + '\'' +
+                ", photo='" + photo + '\'' +
+                ", profession='" + profession + '\'' +
+                ", diplome='" + diplome + '\'' +
+                ", statut='" + statut + '\'' +
+                ", age=" + age +
+                '}';
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getNom() {
+        return nom;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Date getDateDeNaissance() {
@@ -75,11 +113,51 @@ public class Personne {
     }
 
     public String getVille() {
-        return Ville;
+        return ville;
     }
 
     public void setVille(String ville) {
-        Ville = ville;
+        this.ville = ville;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getDiplome() {
+        return diplome;
+    }
+
+    public void setDiplome(String diplome) {
+        this.diplome = diplome;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 
     public int getAge() {
@@ -90,19 +168,11 @@ public class Personne {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "Personne{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", dateDeNaissance=" + dateDeNaissance +
-                ", Ville='" + Ville + '\'' +
-                ", age=" + age +
-                ", familles=" + familles +
-                '}';
+    public Long getId() {
+        return id;
     }
 
-    @Relationship(type = "MEMBER")
-    private List<Famille> familles;
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

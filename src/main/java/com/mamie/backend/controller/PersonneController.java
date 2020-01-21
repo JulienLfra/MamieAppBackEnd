@@ -2,8 +2,6 @@ package com.mamie.backend.controller;
 
 import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.PersonneRepository;
-import org.neo4j.driver.Driver;
-import org.neo4j.driver.Session;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,18 +12,15 @@ import java.util.List;
 @RestController
 public class PersonneController {
 
-    private final Driver driver;
-
     private final PersonneRepository personneRepository;
 
-    public PersonneController(Driver driver, PersonneRepository personneRepository) {
-        this.driver = driver;
+    public PersonneController(PersonneRepository personneRepository) {
         this.personneRepository = personneRepository;
     }
 
 
     @GetMapping(path = "/personnes", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Personne> getPersonnesName() {
+    public List<Personne> getPersonnesNom() {
 
         Iterable<Personne> p = personneRepository.findAll();
         List<Personne> persons = new ArrayList<>();
@@ -36,9 +31,11 @@ public class PersonneController {
     }
 
     @GetMapping(path = "/personne", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Personne getPersonneName(@RequestParam String lastName, @RequestParam String firstName) {
+    public List<Personne> getPersonneNom(@RequestParam String nom, @RequestParam String prenom) {
 
-        return personneRepository.findByLastNameAndAndFirstName(lastName,firstName);
+        List<Personne> persons = new ArrayList<>();
+        persons.add(personneRepository.findByNomAndPrenom(nom,prenom));
+        return persons;
     }
 
     @PutMapping(path ="/personne")
@@ -52,7 +49,7 @@ public class PersonneController {
             throw new Exception("La personne n'existe pas!");
         }
 
-        Personne personneToDelete = personneRepository.findByLastName(personne.getLastName());
+        Personne personneToDelete = personneRepository.findByNom(personne.getNom());
 
         personneRepository.delete(personneToDelete);
 
@@ -63,6 +60,6 @@ public class PersonneController {
 
 
     private boolean isSaveInDataBase(Personne personne) {
-        return personneRepository.existsByLastName(personne.getLastName());
+        return personneRepository.existsByNom(personne.getNom());
     }
 }

@@ -5,20 +5,12 @@ import com.mamie.backend.model.Membre;
 import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.FamilleRepository;
 import com.mamie.backend.repository.PersonneRepository;
-import org.neo4j.driver.AuthTokens;
-import org.neo4j.driver.Driver;
-import org.neo4j.driver.GraphDatabase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -27,16 +19,9 @@ import java.util.List;
 @EnableNeo4jRepositories
 public class BackEndApplication {
 
-	private final static Logger log = LoggerFactory.getLogger(BackEndApplication.class);
-
 	public static void main(String[] args) throws Exception {
 
 		SpringApplication.run(BackEndApplication.class, args);
-	}
-
-	@Bean
-	public Driver neo4jDriver() {
-		return GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic( "neo4j", "admin" ));
 	}
 
 	@Bean
@@ -45,15 +30,15 @@ public class BackEndApplication {
 
 			familleRepository.deleteAll();
 
-			Famille plaideau = new Famille("Plaideau");
-			Famille bozon = new Famille("Bozon");
-			Famille molinet = new Famille("Molinet");
+			Famille plaideau = new Famille("Plaideau",2);
+			Famille bozon = new Famille("Bozon",1);
+			Famille molinet = new Famille("Molinet",3);
 
 			List<Famille> team = Arrays.asList(plaideau, bozon, molinet);
 
-			log.info("Before linking up with Neo4j...");
+			System.out.println("Before linking up with Neo4j...");
 
-			team.stream().forEach(famille -> log.info("\t" + famille.toString()));
+			team.stream().forEach(famille -> System.out.println("\t" + famille.toString()));
 
 			familleRepository.save(plaideau);
 			familleRepository.save(bozon);
@@ -71,29 +56,29 @@ public class BackEndApplication {
 
 			// We already know craig works with roy and greg
 //
-			log.info("Lookup each person by name...");
-			log.info("\t" + familleRepository.findAll());
+			System.out.println("Lookup each person by name...");
+			System.out.println("\t" + familleRepository.findAll());
 
 			personneRepository.deleteAll();
 
 
 
-			Personne plaideauG = new Personne(1L,"Plaideau","Guillaume", new Date("21/09/1996"),23);
-			Personne bozonG = new Personne(2L,"Bozon","Guillaume");
-			Personne molinetB = new Personne(3L,"Molinet","Benjamin");
+			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", new Date("21/09/1996"), "Lyon", "France", "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/p960x960/68726057_2649903395053759_4484571908636934144_o.jpg?_nc_cat=109&_nc_ohc=7wudLEBcpUEAX_-WYj0&_nc_ht=scontent-cdg2-1.xx&_nc_tp=1002&oh=171313c159ee5353f4427c79ec4ebd4c&oe=5EA19BAB","Dev","Ingé", "Celib", 23);
+			Personne bozonG = new Personne("Bozon","Guillaume");
+			Personne molinetB = new Personne("Molinet","Benjamin");
 
 			List<Personne> teamP = Arrays.asList(plaideauG, bozonG, molinetB);
 
-			log.info("Before linking up with Neo4j...");
+			System.out.println("Before linking up with Neo4j...");
 
-			teamP.stream().forEach(personne -> log.info("\t" + personne.toString()));
+			teamP.stream().forEach(personne -> System.out.println("\t" + personne.toString()));
 
 			personneRepository.save(plaideauG);
 			personneRepository.save(bozonG);
 			personneRepository.save(molinetB);
 
-			log.info("Lookup each person by name...");
-			log.info("\t" + personneRepository.findAll());
+			System.out.println("Lookup each person by name...");
+			System.out.println("\t" + personneRepository.findAll());
 
 			Membre plaideauGuillaume = new Membre();
 			plaideauGuillaume.setFamille(plaideau);
