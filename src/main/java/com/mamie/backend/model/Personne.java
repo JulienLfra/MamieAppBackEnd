@@ -30,6 +30,9 @@ public class Personne {
     private String statut;
     private int age;
 
+    @Relationship(type = "IN", direction = Relationship.OUTGOING)
+    private Famille famille;
+
 
     private Personne() {
         // Empty constructor required as of Neo4j API 2.0.5
@@ -48,7 +51,7 @@ public class Personne {
         this.age = age;
     }
 
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age) {
+    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -60,6 +63,7 @@ public class Personne {
         this.diplome = diplome;
         this.statut = statut;
         this.age = age;
+        this.famille = famille;
     }
 
     @Override
@@ -77,6 +81,7 @@ public class Personne {
                 ", diplome='" + diplome + '\'' +
                 ", statut='" + statut + '\'' +
                 ", age=" + age +
+                ", famille=" + famille +
                 '}';
     }
 
