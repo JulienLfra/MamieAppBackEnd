@@ -33,6 +33,7 @@ public class PersonneController {
     }
 
 
+    //Utile?
     @GetMapping(path = "/personne", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Personne> getPersonneNom(@RequestParam String nom, @RequestParam String prenom) {
 
