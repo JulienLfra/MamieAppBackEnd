@@ -30,13 +30,26 @@ public class PersonneController {
         return persons;
     }
 
+
     @GetMapping(path = "/personne", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Personne> getPersonneNom(@RequestParam String nom, @RequestParam String prenom) {
 
         List<Personne> persons = new ArrayList<>();
-        persons.add(personneRepository.findByNomAndPrenom(nom,prenom));
+        Personne result = personneRepository.findByNomAndPrenom(nom,prenom);
+        persons.add(result);
         return persons;
     }
+
+
+    @GetMapping(path = "/personneMail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getPersonneNomByMail(@RequestParam String mail) {
+
+        List<Personne> persons = new ArrayList<>();
+        Personne result = personneRepository.findByMail(mail);
+        persons.add(result);
+        return persons;
+    }
+
 
     @PutMapping(path ="/personne")
     public void addPersonne(@RequestBody Personne personne) {

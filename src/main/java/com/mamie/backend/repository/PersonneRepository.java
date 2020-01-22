@@ -9,4 +9,5 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
     Personne findByNom(@Param("nom") String nom);
     Personne findByNomAndPrenom(@Param("nom") String nom, @Param("prenom") String prenom);
     boolean existsByNom (@Param("nom") String nom);
+    Personne findByMail(@Param("mail") String mail);
 }
