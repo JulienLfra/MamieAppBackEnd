@@ -3,9 +3,7 @@ package com.mamie.backend.model;
 import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.Email;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @NodeEntity
 public class Personne {
@@ -29,26 +27,20 @@ public class Personne {
     private int age;
 
     @Relationship(type = "IN", direction = Relationship.OUTGOING)
-    private Famille famille;
+    private List<Famille> familles = new ArrayList<>();
+
+    @Relationship(type = "Sibling", direction = Relationship.OUTGOING)
+    private List<Personne> sibling = new ArrayList<>();
+
+    @Relationship(type = "Enfant_de", direction = Relationship.OUTGOING)
+    private List<Personne> parents = new ArrayList<>();
+
+    @Relationship(type = "Mariage", direction = Relationship.OUTGOING)
+    private Personne epoux;
 
 
     private Personne() {
         // Empty constructor required as of Neo4j API 2.0.5
-    }
-
-
-    public Personne(String nom, String prenom, Famille famille) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.famille = famille;
-    }
-
-    public Personne(String nom, String prenom, Date dateDeNaissance, int age, Famille famille) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateDeNaissance = dateDeNaissance;
-        this.age = age;
-        this.famille = famille;
     }
 
     public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
@@ -63,7 +55,46 @@ public class Personne {
         this.diplome = diplome;
         this.statut = statut;
         this.age = age;
-        this.famille = famille;
+        this.familles.add(famille);
+    }
+
+    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.dateDeNaissance = dateDeNaissance;
+        this.ville = ville;
+        this.pays = pays;
+        this.photo = photo;
+        this.profession = profession;
+        this.diplome = diplome;
+        this.statut = statut;
+        this.age = age;
+        this.familles.addAll(familles);
+    }
+
+    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.dateDeNaissance = dateDeNaissance;
+        this.ville = ville;
+        this.pays = pays;
+        this.photo = photo;
+        this.profession = profession;
+        this.diplome = diplome;
+        this.statut = statut;
+        this.age = age;
+        this.familles = familles;
+        this.sibling = sibling;
+        this.parents = parents;
+        this.epoux = epoux;
+    }
+
+    public Personne(String nom, String prenom, String mail) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
     }
 
     @Override
@@ -81,7 +112,7 @@ public class Personne {
                 ", diplome='" + diplome + '\'' +
                 ", statut='" + statut + '\'' +
                 ", age=" + age +
-                ", famille=" + famille +
+                ", familles=" + familles +
                 '}';
     }
 
@@ -179,5 +210,13 @@ public class Personne {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Famille> getFamilles() {
+        return familles;
+    }
+
+    public void setFamilles(List<Famille> familles) {
+        this.familles = familles;
     }
 }
