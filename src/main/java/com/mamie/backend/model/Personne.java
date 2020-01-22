@@ -39,16 +39,18 @@ public class Personne {
     }
 
 
-    public Personne(String nom, String prenom) {
+    public Personne(String nom, String prenom, Famille famille) {
         this.nom = nom;
         this.prenom = prenom;
+        this.famille = famille;
     }
 
-    public Personne(String nom, String prenom, Date dateDeNaissance, int age) {
+    public Personne(String nom, String prenom, Date dateDeNaissance, int age, Famille famille) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
         this.age = age;
+        this.famille = famille;
     }
 
     public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
