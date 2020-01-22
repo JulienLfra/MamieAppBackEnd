@@ -5,6 +5,7 @@ import com.mamie.backend.exception.famille.ObtenirFamilleException;
 import com.mamie.backend.exception.famille.ObtenirFamillesException;
 import com.mamie.backend.model.Famille;
 import com.mamie.backend.repository.FamilleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class FamilleController {
 
     @ExceptionHandler({ObtenirFamillesException.class})
     @GetMapping(path = "/familles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<Famille> getFamilles() {
 
         Iterable<Famille> f = familleRepository.findAll();
@@ -36,6 +38,7 @@ public class FamilleController {
     }
 
     @GetMapping(path = "/familleNom", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<Famille> getFamilleNom(@RequestParam String nom) {
 
         List<Famille> famille = new ArrayList<>();
@@ -60,11 +63,13 @@ public class FamilleController {
 //    }
 
     @PostMapping(path = "/famille")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addPostFamille(@RequestBody Famille famille) {
         familleRepository.save(famille);
     }
 
     @PutMapping(path = "/famille")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addFamille(@RequestBody Famille famille) {
         familleRepository.save(famille);
     }
@@ -72,6 +77,7 @@ public class FamilleController {
 
 
     @DeleteMapping(path = "/famille")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFamille(@RequestBody Famille famille) {
         if (!isSaveInDataBase(famille)) {
             throw new ObtenirFamilleException(famille.getNom());
