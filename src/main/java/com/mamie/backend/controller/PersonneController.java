@@ -4,6 +4,7 @@ import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.PersonneRepository;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.PostLoad;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class PersonneController {
 
 
     @GetMapping(path = "/personnes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<Personne> getPersonnesNom() {
 
         Iterable<Personne> p = personneRepository.findAll();
@@ -35,6 +37,7 @@ public class PersonneController {
 
     //Utile?
     @GetMapping(path = "/personne", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<Personne> getPersonneNom(@RequestParam String nom, @RequestParam String prenom) {
 
         List<Personne> persons = new ArrayList<>();
@@ -45,6 +48,7 @@ public class PersonneController {
 
 
     @GetMapping(path = "/personneMail", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<Personne> getPersonneNomByMail(@RequestParam String mail) {
         //Because mail is unique
         List<Personne> persons = new ArrayList<>();
@@ -54,31 +58,38 @@ public class PersonneController {
     }
 
 
-    @GetMapping(path = "/membreFamille", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Personne> getPersonnesByFamily(@RequestParam String famille) {
+    @GetMapping(path = "/membresFamille", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Personne> getPersonnesByFamily(@RequestParam String mail) {
 
-        List<Personne> persons = new ArrayList<>();
-        Personne result = personneRepository.findByFamille(famille);
-        persons.add(result);
+        List<Personne> persons;
+        persons = personneRepository.findMembreFamilleByUserMail(mail);
         return persons;
+    }
+
+    @PutMapping(path = "/changerPhotoPersonne", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updatePhotoPersonneByMail(@RequestParam String mail, @RequestParam String photo) {
+        personneRepository.modifyPhotoPersonneByMail(mail,photo);
     }
 
 
     @PutMapping(path ="/personne")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addPersonne(@RequestBody Personne personne) {
         personneRepository.save(personne);
     }
 
 
-
-
     @PostMapping(path ="/personne")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addPostPersonne(@RequestBody Personne personne) {
         personneRepository.save(personne);
     }
 
 
     @DeleteMapping(path="/personne")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePersonne(@RequestBody Personne personne) throws Exception {
         if (!isSaveInDataBase(personne)) {
             throw new Exception("La personne n'existe pas!");
