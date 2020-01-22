@@ -46,6 +46,11 @@ public class FamilleController {
         return famille;
     }
 
+    @PostMapping(path = "/famille")
+    public void addPostFamille(@RequestBody Famille famille) {
+        familleRepository.save(famille);
+    }
+
     @PutMapping(path = "/famille")
     public void addFamille(@RequestBody Famille famille) {
         familleRepository.save(famille);

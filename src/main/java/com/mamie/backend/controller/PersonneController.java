@@ -2,6 +2,8 @@ package com.mamie.backend.controller;
 
 import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.PersonneRepository;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.PostLoad;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +57,13 @@ public class PersonneController {
     public void addPersonne(@RequestBody Personne personne) {
         personneRepository.save(personne);
     }
+
+
+    @PostMapping(path ="/personne")
+    public void addPostPersonne(@RequestBody Personne personne) {
+        personneRepository.save(personne);
+    }
+
 
     @DeleteMapping(path="/personne")
     public void deletePersonne(@RequestBody Personne personne) throws Exception {
