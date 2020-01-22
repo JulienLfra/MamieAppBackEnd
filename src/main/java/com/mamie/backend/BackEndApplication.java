@@ -1,8 +1,9 @@
 package com.mamie.backend;
 
+import com.mamie.backend.model.Evenement;
 import com.mamie.backend.model.Famille;
-import com.mamie.backend.model.Membre;
 import com.mamie.backend.model.Personne;
+import com.mamie.backend.repository.EvenementRepository;
 import com.mamie.backend.repository.FamilleRepository;
 import com.mamie.backend.repository.PersonneRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +26,7 @@ public class BackEndApplication {
 	}
 
 	@Bean
-	CommandLineRunner demo(FamilleRepository familleRepository, PersonneRepository personneRepository) {
+	CommandLineRunner demo(FamilleRepository familleRepository, PersonneRepository personneRepository, EvenementRepository evenementRepository) {
 		return args -> {
 
 			familleRepository.deleteAll();
@@ -44,18 +45,6 @@ public class BackEndApplication {
 			familleRepository.save(bozon);
 			familleRepository.save(molinet);
 
-//			greg = familleRepository.findByName(greg.getName());
-//			greg.worksWith(roy);
-//			greg.worksWith(craig);
-//			FamilleRepository.save(greg);
-//
-//			roy = FamilleRepository.findByName(roy.getName());
-//			roy.worksWith(craig);
-//			// We already know that roy works with greg
-//			personRepository.save(roy);
-
-			// We already know craig works with roy and greg
-//
 			System.out.println("Lookup each person by name...");
 			System.out.println("\t" + familleRepository.findAll());
 
@@ -63,7 +52,7 @@ public class BackEndApplication {
 
 
 
-			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", new Date("21/09/1996"), "Lyon", "France", "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/p960x960/68726057_2649903395053759_4484571908636934144_o.jpg?_nc_cat=109&_nc_ohc=7wudLEBcpUEAX_-WYj0&_nc_ht=scontent-cdg2-1.xx&_nc_tp=1002&oh=171313c159ee5353f4427c79ec4ebd4c&oe=5EA19BAB","Dev","Ingé", "Celib", 23);
+			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", new Date("21/09/1996"), "Lyon", "France", "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/p960x960/68726057_2649903395053759_4484571908636934144_o.jpg?_nc_cat=109&_nc_ohc=7wudLEBcpUEAX_-WYj0&_nc_ht=scontent-cdg2-1.xx&_nc_tp=1002&oh=171313c159ee5353f4427c79ec4ebd4c&oe=5EA19BAB","Dev","Ingé", "Celib", 23, plaideau);
 			Personne bozonG = new Personne("Bozon","Guillaume");
 			Personne molinetB = new Personne("Molinet","Benjamin");
 
@@ -80,10 +69,12 @@ public class BackEndApplication {
 			System.out.println("Lookup each person by name...");
 			System.out.println("\t" + personneRepository.findAll());
 
-			Membre plaideauGuillaume = new Membre();
-			plaideauGuillaume.setFamille(plaideau);
-			plaideauGuillaume.setPersonne(plaideauG);
 
+			Evenement event = new Evenement("Mariage", new Date("21/09/2027"), "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", plaideau);
+
+			evenementRepository.save(event);
+
+			System.out.println(evenementRepository.findAll());
 		};
 	}
 
