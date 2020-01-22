@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class FamilleController {
 
@@ -34,7 +35,7 @@ public class FamilleController {
         return familles;
     }
 
-    @GetMapping(path = "/famille", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/familleNom", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Famille> getFamilleNom(@RequestParam String nom) {
 
         List<Famille> famille = new ArrayList<>();
@@ -46,6 +47,18 @@ public class FamilleController {
         return famille;
     }
 
+//    @GetMapping(path = "/familleMail", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public List<Famille> getFamillesMail(@RequestParam String mail) {
+//
+//        List<Famille> famille = new ArrayList<>();
+//        Famille result = familleRepository.findByMail(mail);
+//        if(result==null){
+//            throw new ObtenirFamilleException(mail);
+//        }
+//        famille.add(result);
+//        return famille;
+//    }
+
     @PostMapping(path = "/famille")
     public void addPostFamille(@RequestBody Famille famille) {
         familleRepository.save(famille);
@@ -55,6 +68,8 @@ public class FamilleController {
     public void addFamille(@RequestBody Famille famille) {
         familleRepository.save(famille);
     }
+
+
 
     @DeleteMapping(path = "/famille")
     public void deleteFamille(@RequestBody Famille famille) {

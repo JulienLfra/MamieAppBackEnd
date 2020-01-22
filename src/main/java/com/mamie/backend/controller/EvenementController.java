@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class EvenementController {
 
@@ -38,7 +39,7 @@ public class EvenementController {
             evenements.add(evenement);
         }
         return evenements;
-    }
+}
 
     @PutMapping(path ="/evenement")
     public void addEvenement(@RequestBody Evenement evenement) {
