@@ -53,8 +53,8 @@ public class BackEndApplication {
 //
 //
 //			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", new Date("21/09/1996"), "Lyon", "France", "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/p960x960/68726057_2649903395053759_4484571908636934144_o.jpg?_nc_cat=109&_nc_ohc=7wudLEBcpUEAX_-WYj0&_nc_ht=scontent-cdg2-1.xx&_nc_tp=1002&oh=171313c159ee5353f4427c79ec4ebd4c&oe=5EA19BAB","Dev","Ingé", "Celib", 23, plaideau);
-//			Personne bozonG = new Personne("Bozon","Guillaume", bozon);
-//			Personne molinetB = new Personne("Molinet","Benjamin", molinet);
+//			Personne bozonG = new Personne("Bozon","Guillaume","wesh@gmail.com", new Date("21/09/1996"), "Lyon", "France", "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/p960x960/68726057_2649903395053759_4484571908636934144_o.jpg?_nc_cat=109&_nc_ohc=7wudLEBcpUEAX_-WYj0&_nc_ht=scontent-cdg2-1.xx&_nc_tp=1002&oh=171313c159ee5353f4427c79ec4ebd4c&oe=5EA19BAB","Dev","Ingé", "Celib", 23, bozon);
+//			Personne molinetB = new Personne("Molinet","Benjamin","prout@gmail.com", new Date("21/09/1996"), "Lyon", "France", "https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/p960x960/68726057_2649903395053759_4484571908636934144_o.jpg?_nc_cat=109&_nc_ohc=7wudLEBcpUEAX_-WYj0&_nc_ht=scontent-cdg2-1.xx&_nc_tp=1002&oh=171313c159ee5353f4427c79ec4ebd4c&oe=5EA19BAB","Dev","Ingé", "Celib", 23, molinet);
 //
 //			List<Personne> teamP = Arrays.asList(plaideauG, bozonG, molinetB);
 //
@@ -72,8 +72,12 @@ public class BackEndApplication {
 //			evenementRepository.deleteAll();
 //
 //			Evenement event = new Evenement("Mariage", new Date("21/09/2027"), "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", plaideau);
+//			Evenement event2 = new Evenement("Suicide", new Date("21/09/2027"), "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", bozon);
+//			Evenement event3 = new Evenement("Rattrapage", new Date("21/09/2027"), "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", molinet);
 //
 //			evenementRepository.save(event);
+//			evenementRepository.save(event2);
+//			evenementRepository.save(event3);
 //
 //			System.out.println(evenementRepository.findAll());
 //		};

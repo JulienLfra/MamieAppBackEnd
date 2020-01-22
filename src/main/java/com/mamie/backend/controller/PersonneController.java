@@ -45,9 +45,19 @@ public class PersonneController {
 
     @GetMapping(path = "/personneMail", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Personne> getPersonneNomByMail(@RequestParam String mail) {
-
+        //Because mail is unique
         List<Personne> persons = new ArrayList<>();
         Personne result = personneRepository.findByMail(mail);
+        persons.add(result);
+        return persons;
+    }
+
+
+    @GetMapping(path = "/membreFamille", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getPersonnesByFamily(@RequestParam String famille) {
+
+        List<Personne> persons = new ArrayList<>();
+        Personne result = personneRepository.findByFamille(famille);
         persons.add(result);
         return persons;
     }
@@ -57,6 +67,8 @@ public class PersonneController {
     public void addPersonne(@RequestBody Personne personne) {
         personneRepository.save(personne);
     }
+
+
 
 
     @PostMapping(path ="/personne")
@@ -71,7 +83,7 @@ public class PersonneController {
             throw new Exception("La personne n'existe pas!");
         }
 
-        Personne personneToDelete = personneRepository.findByNom(personne.getNom());
+        Personne personneToDelete = personneRepository.findByMail(personne.getMail());
 
         personneRepository.delete(personneToDelete);
 

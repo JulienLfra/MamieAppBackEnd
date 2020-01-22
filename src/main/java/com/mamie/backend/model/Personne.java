@@ -1,9 +1,6 @@
 package com.mamie.backend.model;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.Email;
 import java.sql.Timestamp;
@@ -20,6 +17,7 @@ public class Personne {
     private String nom;
     private String prenom;
     @Email
+    @Required
     private String mail;
     private Date dateDeNaissance;
     private String ville;
