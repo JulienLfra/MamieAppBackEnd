@@ -30,7 +30,8 @@ public class PersonneController {
 
     @GetMapping(path ="/siblings", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Personne> getSiblings(@RequestParam String mail){
-        return personneRepository.findSiblings(mail);
+//        return personneRepository.findSiblings(mail);
+        return null;
     }
 
     @GetMapping(path = "/personnes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,11 +51,19 @@ public class PersonneController {
     @GetMapping(path = "/personne", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<Personne> getPersonneNom(@RequestParam String nom, @RequestParam String prenom) {
+        return (List<Personne>) personneRepository.findByNomAndPrenom(nom, prenom);
+    }
 
-        List<Personne> persons = new ArrayList<>();
-        Personne result = personneRepository.findByNomAndPrenom(nom, prenom);
-        persons.add(result);
-        return persons;
+    @GetMapping(path = "/membresFamilleByNom", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
+    public List<Personne> getMembresByFamily(@RequestParam String mail, @RequestParam String nomFamille) {
+
+        return personneRepository.findByNomFamille(mail, nomFamille);
+    }
+
+    @GetMapping(path = "/membresFamilleById", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
+    public List<Personne> getMembresByFamily(@RequestParam int id_famille) {
+
+        return personneRepository.findById_Famille(id_famille);
     }
 
 
@@ -69,9 +78,9 @@ public class PersonneController {
     }
 
 
-    @GetMapping(path = "/membresFamille", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/membresFamilleByMail", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<Personne> getPersonnesByFamily(@RequestParam String mail) {
+    public List<Personne> getPersonnesByFamilyByMail(@RequestParam String mail) {
 
         List<Personne> persons;
         persons = personneRepository.findMembreFamilleByUserMail(mail);

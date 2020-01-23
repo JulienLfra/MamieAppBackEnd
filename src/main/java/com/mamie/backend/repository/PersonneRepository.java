@@ -26,6 +26,12 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
     @Query("MATCH (user1:Personne), (user2:Personne) WHERE user1.mail=~$mail AND (user1)-[:Mariage]-(user2) RETURN user2")
     List<Personne> findConjoint(@Param ("mail") String mail);
 
-    @Query()
-    List<Personne> findSiblings(@Param ("mail") String mail);
+//    @Query()
+//    List<Personne> findSiblings(@Param ("mail") String mail);
+
+    @Query("MATCH (user:Personne), (famille:Famille), (membre:Personne) WHERE user.mail=~$mail AND famille.nom=$nomFamille AND (user)-[:IN]->(famille) AND (membre)-[:IN]->(famille) RETURN membre")
+    List<Personne> findByNomFamille(@Param("mail") String mail, @Param("nomFamille") String nomFamille);
+
+    @Query("MATCH (famille:Famille), (membre:Personne) WHERE famille.id_famille=$id_famille AND (membre)-[:IN]->(famille) RETURN membre")
+    List<Personne> findById_Famille(@Param("id_famille") int id_famille);
 }
