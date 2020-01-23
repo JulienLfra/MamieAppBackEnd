@@ -1,16 +1,21 @@
 package com.mamie.backend.model;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.Email;
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @NodeEntity
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonDeserialize(builder = Personne.PersonneBuilder.class)
+
 public class Personne {
 
     @Id
@@ -20,8 +25,9 @@ public class Personne {
     private String nom;
     private String prenom;
     @Email
+    @Required
     private String mail;
-    private Date dateDeNaissance;
+    private String dateDeNaissance;
     private String ville;
     private String pays;
     private String photo;
@@ -29,29 +35,22 @@ public class Personne {
     private String diplome;
     private String statut;
     private int age;
+    private SexeEnum gender;
 
     @Relationship(type = "IN", direction = Relationship.OUTGOING)
-    private Famille famille;
+    private List<Famille> familles = new ArrayList<>();
+
+    @Relationship(type = "Sibling", direction = Relationship.OUTGOING)
+    private List<Personne> sibling = new ArrayList<>();
+
+    @Relationship(type = "Enfant_de", direction = Relationship.OUTGOING)
+    private List<Personne> parents = new ArrayList<>();
+
+    @Relationship(type = "Mariage", direction = Relationship.OUTGOING)
+    private Personne epoux;
 
 
-    private Personne() {
-        // Empty constructor required as of Neo4j API 2.0.5
-    }
-
-
-    public Personne(String nom, String prenom) {
-        this.nom = nom;
-        this.prenom = prenom;
-    }
-
-    public Personne(String nom, String prenom, Date dateDeNaissance, int age) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateDeNaissance = dateDeNaissance;
-        this.age = age;
-    }
-
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
+    public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -63,7 +62,49 @@ public class Personne {
         this.diplome = diplome;
         this.statut = statut;
         this.age = age;
-        this.famille = famille;
+        this.gender = gender;
+        this.familles.add(famille);
+    }
+
+    public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.dateDeNaissance = dateDeNaissance;
+        this.ville = ville;
+        this.pays = pays;
+        this.photo = photo;
+        this.profession = profession;
+        this.diplome = diplome;
+        this.statut = statut;
+        this.age = age;
+        this.gender = gender;
+        this.familles.addAll(familles);
+    }
+
+    public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.dateDeNaissance = dateDeNaissance;
+        this.ville = ville;
+        this.pays = pays;
+        this.photo = photo;
+        this.profession = profession;
+        this.diplome = diplome;
+        this.statut = statut;
+        this.age = age;
+        this.gender = gender;
+        this.familles = familles;
+        this.sibling = sibling;
+        this.parents = parents;
+        this.epoux = epoux;
+    }
+
+    public Personne(String nom, String prenom, String mail) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
     }
 
     @Override
@@ -81,7 +122,8 @@ public class Personne {
                 ", diplome='" + diplome + '\'' +
                 ", statut='" + statut + '\'' +
                 ", age=" + age +
-                ", famille=" + famille +
+                ", gender=" + gender +
+                ", familles=" + familles +
                 '}';
     }
 
@@ -109,11 +151,11 @@ public class Personne {
         this.mail = mail;
     }
 
-    public Date getDateDeNaissance() {
+    public String getDateDeNaissance() {
         return dateDeNaissance;
     }
 
-    public void setDateDeNaissance(Date dateDeNaissance) {
+    public void setDateDeNaissance(String dateDeNaissance) {
         this.dateDeNaissance = dateDeNaissance;
     }
 
@@ -179,5 +221,50 @@ public class Personne {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Famille> getFamilles() {
+        return familles;
+    }
+
+    public void setFamilles(List<Famille> familles) {
+        this.familles = familles;
+    }
+
+    public List<Personne> getSibling() {
+        return sibling;
+    }
+
+    public void setSibling(List<Personne> sibling) {
+        this.sibling = sibling;
+    }
+
+    public List<Personne> getParents() {
+        return parents;
+    }
+
+    public void setParents(List<Personne> parents) {
+        this.parents = parents;
+    }
+
+    public Personne getEpoux() {
+        return epoux;
+    }
+
+    public void setEpoux(Personne epoux) {
+        this.epoux = epoux;
+    }
+
+    public SexeEnum getGender() {
+        return gender;
+    }
+
+    public void setGender(SexeEnum gender) {
+        this.gender = gender;
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class PersonneBuilder {
+
     }
 }
