@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,11 +31,18 @@ public class EvenementController {
     }
 
 
+    @GetMapping(path = "/evenementsById", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Evenement> getEvenementsByUserMail(@RequestParam int id) {
+
+        return evenementRepository.findById((long) id);
+    }
+
+
     @GetMapping(path = "/evenementsByUserMail", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Evenement> getEvenementsByUserMail(@RequestParam String mail) {
 
         return evenementRepository.findEvenementByMailUser(mail);
-}
+    }
 
     @PutMapping(path ="/evenement")
     public void addEvenement(@RequestBody Evenement evenement) {
