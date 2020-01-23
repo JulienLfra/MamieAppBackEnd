@@ -1,5 +1,9 @@
 package com.mamie.backend.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.Email;
@@ -8,6 +12,10 @@ import java.util.Date;
 import java.util.List;
 
 @NodeEntity
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonDeserialize(builder = Personne.PersonneBuilder.class)
+
 public class Personne {
 
     @Id
@@ -27,6 +35,7 @@ public class Personne {
     private String diplome;
     private String statut;
     private int age;
+    private SexeEnum gender;
 
     @Relationship(type = "IN", direction = Relationship.OUTGOING)
     private List<Famille> familles = new ArrayList<>();
@@ -41,11 +50,7 @@ public class Personne {
     private Personne epoux;
 
 
-    public Personne() {
-        // Empty constructor required as of Neo4j API 2.0.5
-    }
-
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
+    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -57,10 +62,11 @@ public class Personne {
         this.diplome = diplome;
         this.statut = statut;
         this.age = age;
+        this.gender = gender;
         this.familles.add(famille);
     }
 
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles) {
+    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -72,10 +78,11 @@ public class Personne {
         this.diplome = diplome;
         this.statut = statut;
         this.age = age;
+        this.gender = gender;
         this.familles.addAll(familles);
     }
 
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux) {
+    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -87,6 +94,7 @@ public class Personne {
         this.diplome = diplome;
         this.statut = statut;
         this.age = age;
+        this.gender = gender;
         this.familles = familles;
         this.sibling = sibling;
         this.parents = parents;
@@ -114,6 +122,7 @@ public class Personne {
                 ", diplome='" + diplome + '\'' +
                 ", statut='" + statut + '\'' +
                 ", age=" + age +
+                ", gender=" + gender +
                 ", familles=" + familles +
                 '}';
     }
@@ -244,5 +253,18 @@ public class Personne {
 
     public void setEpoux(Personne epoux) {
         this.epoux = epoux;
+    }
+
+    public SexeEnum getGender() {
+        return gender;
+    }
+
+    public void setGender(SexeEnum gender) {
+        this.gender = gender;
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class PersonneBuilder {
+
     }
 }
