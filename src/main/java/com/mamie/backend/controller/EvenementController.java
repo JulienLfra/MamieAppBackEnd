@@ -30,17 +30,10 @@ public class EvenementController {
     }
 
 
-    @GetMapping(path = "/evenementsFamille", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Evenement> getEvenementsByFamily(@RequestParam int id) {
+    @GetMapping(path = "/evenementsByUserMail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Evenement> getEvenementsByUserMail(@RequestParam String mail) {
 
-        return evenementRepository.findEvenementByFamille(id);
-
-//        Iterable<Evenement> f = evenementRepository.findAll();
-//        List<Evenement> evenements = new ArrayList<>();
-//        for (Evenement evenement : f) {
-//            evenements.add(evenement);
-//        }
-//        return evenements;
+        return evenementRepository.findEvenementByMailUser(mail);
 }
 
     @PutMapping(path ="/evenement")

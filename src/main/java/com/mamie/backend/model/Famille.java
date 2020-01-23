@@ -45,6 +45,13 @@ public class Famille {
         this.nombreMembre = nombreMembre;
     }
 
+    public void increaseNombreMembre() {
+        this.nombreMembre = this.nombreMembre+1;
+    }
+
+    public void decreaseNombreMembre() {
+        this.nombreMembre = this.nombreMembre-1;
+    }
 
     public Famille(String nom, int nombreMembre) {
         this.nom = nom;

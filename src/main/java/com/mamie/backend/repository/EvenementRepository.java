@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface EvenementRepository extends Neo4jRepository<Evenement, Long> {
 
-    @Query("MATCH (famille:Famille), (event:Evenement) WHERE ID(famille)=$id AND (famille)-[:PARTICIPE]->(event) RETURN event")
-    List<Evenement> findEvenementByFamille(@Param("id") int id);
+    @Query("MATCH (user:Personne), (famille:Famille), (event:Evenement) WHERE user.mail=~$mail AND (user)-[:IN]->(famille) AND (famille)-[:PARTICIPE]->(event) RETURN event")
+    List<Evenement> findEvenementByMailUser(@Param("mail") String mail);
 }

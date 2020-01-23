@@ -1,16 +1,20 @@
 package com.mamie.backend.controller;
 
+import com.mamie.backend.model.Famille;
 import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.PersonneRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.constraints.Null;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -97,13 +101,26 @@ public class PersonneController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addPersonne(@RequestBody Personne personne) {
         personneRepository.save(personne);
+        List<Famille> familles =personne.getFamilles();
+        familles.forEach(famille -> famille.increaseNombreMembre());
     }
 
 
     @PostMapping(path = "/personne")
     @ResponseStatus(HttpStatus.CREATED)
+//    @RequestHeader("Content-Type: application/json")
     public void addPostPersonne(@RequestBody Personne personne) {
-        personneRepository.save(personne);
+        try {
+            if (personne.getMail().isEmpty()) {
+                personneRepository.save(personne);
+                List<Famille> familles =personne.getFamilles();
+                familles.forEach(famille -> famille.increaseNombreMembre());
+            }
+        }
+
+        catch(NullPointerException e) {
+            throw new RuntimeException(String.format("Personne vide , %s", e));
+        }
     }
 
 
@@ -117,6 +134,9 @@ public class PersonneController {
         Personne personneToDelete = personneRepository.findByMail(personne.getMail());
 
         personneRepository.delete(personneToDelete);
+
+        List<Famille> familles =personne.getFamilles();
+        familles.forEach(famille -> famille.decreaseNombreMembre());
 
         if (isSaveInDataBase(personne)) {
             throw new Exception("La personne n'a pas été supprimée!");
