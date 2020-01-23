@@ -25,7 +25,7 @@ public class BackEndApplication {
 
 		SpringApplication.run(BackEndApplication.class, args);
 	}
-
+	
 	/*@Bean
 	CommandLineRunner demo(FamilleRepository familleRepository, PersonneRepository personneRepository, EvenementRepository evenementRepository) {
 		return args -> {
@@ -96,5 +96,6 @@ public class BackEndApplication {
 			System.out.println(evenementRepository.findAll());
 		};
 	}*/
+
 
 }

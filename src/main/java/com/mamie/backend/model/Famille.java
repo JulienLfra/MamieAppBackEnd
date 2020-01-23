@@ -13,6 +13,8 @@ public class Famille {
     private Long id;
 
     private String nom;
+    @GeneratedValue
+    private int id_famille;
     private int nombreMembre;
 
 
@@ -44,16 +46,26 @@ public class Famille {
         this.nombreMembre = nombreMembre;
     }
 
+    public int getId_famille() {
+        return id_famille;
+    }
+
+    public void setId_famille(int id_famille) {
+        this.id_famille = id_famille;
+    }
+
     public Famille(String nom, int nombreMembre) {
         this.nom = nom;
         this.nombreMembre = nombreMembre;
     }
+
 
     @Override
     public String toString() {
         return "Famille{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
+                ", id_famille=" + id_famille +
                 ", nombreMembre=" + nombreMembre +
                 '}';
     }

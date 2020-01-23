@@ -2,8 +2,10 @@ package com.mamie.backend.controller;
 
 import com.mamie.backend.model.Personne;
 import com.mamie.backend.repository.PersonneRepository;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.PostLoad;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -94,6 +96,13 @@ public class PersonneController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updatePhotoPersonneByMail(@RequestParam String mail, @RequestParam String photo) {
         personneRepository.modifyPhotoPersonneByMail(mail,photo);
+    }
+
+    @PutMapping(path = "/changerInfosPersonne", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updateInfosPersonneByMail(@RequestParam String mail, @RequestParam String personne) {
+
+//        personneRepository.modifyInfosPersonne(personne);
     }
 
 
