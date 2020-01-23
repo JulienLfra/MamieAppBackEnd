@@ -32,11 +32,9 @@ public class BackEndApplication {
 
 			familleRepository.deleteAll();
 
-			Famille plaideau = new Famille("Plaideau",2);
-			Thread.sleep(10000);
-			Famille bozon = new Famille("Bozon",1);
-			Thread.sleep(10000);
-			Famille molinet = new Famille("Molinet",3);
+			Famille plaideau = new Famille("Plaideau");
+			Famille bozon = new Famille("Bozon");
+			Famille molinet = new Famille("Molinet");
 
 			List<Famille> team = Arrays.asList(plaideau, bozon, molinet);
 

@@ -14,7 +14,6 @@ public class Famille {
     private Long id;
 
     private String nom;
-    private int id_famille;
     private int nombreMembre;
 
 
@@ -46,18 +45,10 @@ public class Famille {
         this.nombreMembre = nombreMembre;
     }
 
-    public int getId_famille() {
-        return id_famille;
-    }
-
-    public void setId_famille(int id_famille) {
-        this.id_famille = id_famille;
-    }
 
     public Famille(String nom, int nombreMembre) {
         this.nom = nom;
         this.nombreMembre = nombreMembre;
-        this.setId_famille((int) new Date().getTime());
     }
 
 
@@ -66,7 +57,6 @@ public class Famille {
         return "Famille{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
-                ", id_famille=" + id_famille +
                 ", nombreMembre=" + nombreMembre +
                 '}';
     }
