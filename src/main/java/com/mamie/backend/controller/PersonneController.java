@@ -53,9 +53,9 @@ public class PersonneController {
     }
 
     @GetMapping(path = "/membresFamilleById", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
-    public List<Personne> getMembresByFamily(@RequestParam int id_famille) {
+    public List<Personne> getMembresByFamily(@RequestParam int id) {
 
-        return personneRepository.findById_Famille(id_famille);
+        return personneRepository.findById_Famille(id);
     }
 
 
