@@ -13,7 +13,7 @@ public class Evenement {
     private Long id;
 
     private String nom;
-    private Date date;
+    private String date;
     private String lieu;
     private String photo;
 
@@ -23,7 +23,7 @@ public class Evenement {
     public Evenement() {
     }
 
-    public Evenement(String nom, Date date, String lieu, String photo, Famille famille) {
+    public Evenement(String nom, String date, String lieu, String photo, Famille famille) {
         this.nom = nom;
         this.date = date;
         this.lieu = lieu;
@@ -47,11 +47,11 @@ public class Evenement {
         this.nom = nom;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

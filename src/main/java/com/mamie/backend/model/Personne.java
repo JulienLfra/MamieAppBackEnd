@@ -27,7 +27,7 @@ public class Personne {
     @Email
     @Required
     private String mail;
-    private Date dateDeNaissance;
+    private String dateDeNaissance;
     private String ville;
     private String pays;
     private String photo;
@@ -50,7 +50,7 @@ public class Personne {
     private Personne epoux;
 
 
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
+    public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -66,7 +66,7 @@ public class Personne {
         this.familles.add(famille);
     }
 
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles) {
+    public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -82,7 +82,7 @@ public class Personne {
         this.familles.addAll(familles);
     }
 
-    public Personne(String nom, String prenom, @Email String mail, Date dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux) {
+    public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -151,11 +151,11 @@ public class Personne {
         this.mail = mail;
     }
 
-    public Date getDateDeNaissance() {
+    public String getDateDeNaissance() {
         return dateDeNaissance;
     }
 
-    public void setDateDeNaissance(Date dateDeNaissance) {
+    public void setDateDeNaissance(String dateDeNaissance) {
         this.dateDeNaissance = dateDeNaissance;
     }
 
