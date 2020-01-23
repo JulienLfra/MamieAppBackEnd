@@ -46,14 +46,6 @@ public class PersonneController {
         return persons;
     }
 
-
-    //Utile?
-    @GetMapping(path = "/personne", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Personne> getPersonneNom(@RequestParam String nom, @RequestParam String prenom) {
-        return (List<Personne>) personneRepository.findByNomAndPrenom(nom, prenom);
-    }
-
     @GetMapping(path = "/membresFamilleByNom", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
     public List<Personne> getMembresByFamily(@RequestParam String mail, @RequestParam String nomFamille) {
 
