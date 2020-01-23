@@ -50,17 +50,16 @@ public class FamilleController {
         return famille;
     }
 
-//    @GetMapping(path = "/familleMail", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<Famille> getFamillesMail(@RequestParam String mail) {
-//
-//        List<Famille> famille = new ArrayList<>();
-//        Famille result = familleRepository.findByMail(mail);
-//        if(result==null){
-//            throw new ObtenirFamilleException(mail);
-//        }
-//        famille.add(result);
-//        return famille;
-//    }
+    @GetMapping(path = "/familleMail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Famille> getFamillesMail(@RequestParam String mail) {
+
+
+        List<Famille> result = (List<Famille>) familleRepository.findByMail(mail);
+        if(result==null){
+            throw new ObtenirFamilleException(mail);
+        }
+        return result;
+    }
 
     @PostMapping(path = "/famille")
     @ResponseStatus(HttpStatus.CREATED)
