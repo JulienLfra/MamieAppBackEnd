@@ -11,4 +11,7 @@ public interface EvenementRepository extends Neo4jRepository<Evenement, Long> {
 
     @Query("MATCH (user:Personne), (famille:Famille), (event:Evenement) WHERE user.mail=~$mail AND (user)-[:IN]->(famille) AND (famille)-[:PARTICIPE]->(event) RETURN event")
     List<Evenement> findEvenementByMailUser(@Param("mail") String mail);
+
+    @Query("MATCH (event:Evenement) WHERE ID(event) = $id RETURN event")
+    List<Evenement> findById(@Param("id") int id);
 }

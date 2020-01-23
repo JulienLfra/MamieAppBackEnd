@@ -32,9 +32,8 @@ public class EvenementController {
 
 
     @GetMapping(path = "/evenementsById", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Evenement> getEvenementsByUserMail(@RequestParam int id) {
-
-        return evenementRepository.findById((long) id);
+    public List<Evenement> getEvenementsById(@RequestParam int id) {
+        return evenementRepository.findById(id);
     }
 
 
