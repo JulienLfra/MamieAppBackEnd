@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -22,10 +24,14 @@ public class PersonneController {
     }
 
     @GetMapping(path = "/mariage", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getMariage(@RequestParam String nom, @RequestParam String prenom) {
-        return null;
+    public List<Personne> getMariage(@RequestParam String mail) {
+      return personneRepository.findConjoint(mail);
     }
 
+    @GetMapping(path ="/siblings", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getSiblings(@RequestParam String mail){
+        return personneRepository.findSiblings(mail);
+    }
 
     @GetMapping(path = "/personnes", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
