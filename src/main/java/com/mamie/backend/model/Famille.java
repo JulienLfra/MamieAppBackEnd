@@ -4,6 +4,8 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import java.util.Date;
+
 @NodeEntity
 public class Famille {
 
@@ -12,7 +14,6 @@ public class Famille {
     private Long id;
 
     private String nom;
-    @GeneratedValue
     private int id_famille;
     private int nombreMembre;
 
@@ -56,6 +57,7 @@ public class Famille {
     public Famille(String nom, int nombreMembre) {
         this.nom = nom;
         this.nombreMembre = nombreMembre;
+        this.setId_famille((int) new Date().getTime());
     }
 
 
