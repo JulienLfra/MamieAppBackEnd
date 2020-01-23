@@ -8,8 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.neo4j.driver.AccessMode;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.SessionConfig;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -17,8 +27,21 @@ public class PersonneController {
 
     private final PersonneRepository personneRepository;
 
-    public PersonneController(PersonneRepository personneRepository) {
+    private final Driver driver;
+
+    public PersonneController(PersonneRepository personneRepository, Driver driver) {
         this.personneRepository = personneRepository;
+        this.driver = driver;
+    }
+
+    @GetMapping(path = "/mariage", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getMariage(@RequestParam String nom, @RequestParam String prenom) {
+
+        try(Session session = driver.session()) {
+            return session.run(String.format("MATCH (user1:Personne), (user2:Personne) WHERE user1.nom='%s' AND user1.prenom='%s' AND (user1)-[:Marier]-(user2) RETURN user2",nom, prenom))
+                    .list(r -> r.toString());
+        }
+
     }
 
 
