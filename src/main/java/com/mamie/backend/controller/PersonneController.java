@@ -38,6 +38,43 @@ public class PersonneController {
         return null;
     }
 
+    @GetMapping(path ="/parents", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getParents(@RequestParam String mail){
+        return personneRepository.findParents(mail);
+    }
+
+    @GetMapping(path ="/enfants", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getEnfants(@RequestParam String mail){
+        return personneRepository.findEnfants(mail);
+    }
+
+    @GetMapping(path="/genealogie", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getGenealogie(@RequestParam String mail) {
+        String arbre = "";
+
+        Personne user = personneRepository.findByMail(mail);
+        List<Personne> parents = personneRepository.findParents(mail);
+        List<Personne> siblings = personneRepository.findSiblings(mail);
+        List<Personne> spouses = personneRepository.findConjoint(mail);
+        List<Personne> children = personneRepository.findEnfants(mail);
+
+
+        String userRoot = "{" +
+                "\"id :\" \"" + user.getId() +"\"," +
+
+                "\"gender :\" \"" + user.getGender() +"\"," +
+
+                "}";
+
+        String lesPersonnes = "";
+
+        String objetContenantLesPersonnes = "[" + lesPersonnes +  "]";
+
+        String jsonFinal = "{" + objetContenantLesPersonnes + "}";
+
+        return arbre;
+    }
+
     @GetMapping(path = "/personnes", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<Personne> getPersonnesNom() {

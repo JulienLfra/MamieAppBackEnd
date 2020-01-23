@@ -23,15 +23,24 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
     @Query("MATCH (user:Personne) WHERE user.mail=~$personne.mail SET user=$personne")
     void modifyInfosPersonne(Personne personne);
 
-    @Query("MATCH (user1:Personne), (user2:Personne) WHERE user1.mail=~$mail AND (user1)-[:Mariage]-(user2) RETURN user2")
+    @Query("MATCH (user:Personne), (conjoint:Personne) WHERE user.mail=~$mail AND (user)-[:Mariage]-(conjoint) RETURN conjoint")
     List<Personne> findConjoint(@Param ("mail") String mail);
 
-//    @Query()
-//    List<Personne> findSiblings(@Param ("mail") String mail);
+
 
     @Query("MATCH (user:Personne), (famille:Famille), (membre:Personne) WHERE user.mail=~$mail AND famille.nom=$nomFamille AND (user)-[:IN]->(famille) AND (membre)-[:IN]->(famille) RETURN membre")
     List<Personne> findByNomFamille(@Param("mail") String mail, @Param("nomFamille") String nomFamille);
 
     @Query("MATCH (famille:Famille), (membre:Personne) WHERE ID(famille)=$id AND (membre)-[:IN]->(famille) RETURN membre")
     List<Personne> findById_Famille(@Param("id") int id);
+
+    @Query("MATCH (user:Personne), (sibling:Personne) WHERE user.mail=~$mail AND (user)-[:Sibling]-(sibling) RETURN sibling")
+    List<Personne> findSiblings(@Param ("mail") String mail);
+
+    @Query("MATCH (user:Personne), (parent:Personne) WHERE user.mail=~$mail AND (user)-[:Enfant_de]->(parent) RETURN parent")
+    List<Personne> findParents(@Param ("mail") String mail);
+
+    @Query("MATCH (user:Personne), (enfant:Personne) WHERE user.mail=~$mail AND (user)<-[:Enfant_de]-(enfant) RETURN enfant")
+    List<Personne> findEnfants(@Param ("mail") String mail);
+
 }

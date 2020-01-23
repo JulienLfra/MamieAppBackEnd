@@ -14,6 +14,9 @@ public class Famille {
     private Long id;
 
     private String nom;
+
+    private int id_famille;
+
     private int nombreMembre;
 
 
