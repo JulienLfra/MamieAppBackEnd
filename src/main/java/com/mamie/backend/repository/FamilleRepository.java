@@ -14,4 +14,5 @@ public interface FamilleRepository extends Neo4jRepository<Famille, Long> {
 
     @Query("MATCH (user:Personne), (famille:Famille) WHERE user.mail=~$mail AND (user)-[:IN]->(famille) RETURN famille")
     List<Famille> findByMail(@Param("mail") String mail);
+
 }

@@ -19,4 +19,7 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
 
     @Query("MATCH (user:Personne), (membre:Personne), (famille:Famille) WHERE user.mail=~$mail AND (user)-[:IN]->(famille) AND (membre)-[:IN]->(famille) RETURN membre")
     List<Personne> findMembreFamilleByUserMail(@Param ("mail") String mail);
+
+    @Query("MATCH (user:Personne) WHERE user.mail=~$personne.mail SET user=$personne")
+    void modifyInfosPersonne(Personne personne);
 }

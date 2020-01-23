@@ -39,7 +39,7 @@ public class Personne {
     private Personne epoux;
 
 
-    private Personne() {
+    public Personne() {
         // Empty constructor required as of Neo4j API 2.0.5
     }
 
@@ -218,5 +218,29 @@ public class Personne {
 
     public void setFamilles(List<Famille> familles) {
         this.familles = familles;
+    }
+
+    public List<Personne> getSibling() {
+        return sibling;
+    }
+
+    public void setSibling(List<Personne> sibling) {
+        this.sibling = sibling;
+    }
+
+    public List<Personne> getParents() {
+        return parents;
+    }
+
+    public void setParents(List<Personne> parents) {
+        this.parents = parents;
+    }
+
+    public Personne getEpoux() {
+        return epoux;
+    }
+
+    public void setEpoux(Personne epoux) {
+        this.epoux = epoux;
     }
 }
