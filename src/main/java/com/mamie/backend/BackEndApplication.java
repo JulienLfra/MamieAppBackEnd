@@ -57,19 +57,19 @@ public class BackEndApplication {
 //			GPlaideau.add(plaideau);
 //			GPlaideau.add(bozon);
 //
-//			Personne plaideauA = new Personne("Plaideau","Alain","ap@gmail.com", new Date("21/09/1996"), SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ap@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
-//			Personne plaideauM = new Personne("Plaideau","Murielle","mp@gmail.com", new Date("21/09/1996"), SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/mp@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
+//			Personne plaideauA = new Personne("Plaideau","Alain","ap@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ap@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
+//			Personne plaideauM = new Personne("Plaideau","Murielle","mp@gmail.com", "21/09/1996", SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/mp@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
 //			List<Personne> parentsPlaideau = new ArrayList<>();
 //			parentsPlaideau.add(plaideauA);
 //			parentsPlaideau.add(plaideauM);
-//			Personne plaideauE = new Personne("Plaideau","Eleonore","ep@gmail.com", new Date("21/09/1996"), SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ep@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
+//			Personne plaideauE = new Personne("Plaideau","Eleonore","ep@gmail.com", "21/09/1996", SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ep@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
 //			List<Personne> sibling = new ArrayList<>();
 //			sibling.add(plaideauE);
 //
-//			Personne bozonG = new Personne("Bozon","Guillaume","gbozon@gmail.com", new Date("21/09/1996"), SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/gbozon@gmail.com.png","Dev","Ingé", "Celib", 23, bozon);
-//			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", new Date("21/09/1996"), SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/plaideaug83170@gmail.com.png","Dev","Ingé", "Celib", 23, GPlaideau,sibling,parentsPlaideau,bozonG);
+//			Personne bozonG = new Personne("Bozon","Guillaume","gbozon@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/gbozon@gmail.com.png","Dev","Ingé", "Celib", 23, bozon);
+//			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/plaideaug83170@gmail.com.png","Dev","Ingé", "Celib", 23, GPlaideau,sibling,parentsPlaideau,bozonG);
 //
-//			Personne molinetB = new Personne("Molinet","Benjamin","bmolinet@gmail.com", new Date("21/09/1996"), SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ap@bmolinet.com.png","Dev","Ingé", "Celib", 23, molinet);
+//			Personne molinetB = new Personne("Molinet","Benjamin","bmolinet@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-9/p720x720/64219237_2511438135566953_6095685978989527040_o.jpg?_nc_cat=106&_nc_ohc=BK4j5MPhWsoAX_dGLal&_nc_ht=scontent-cdt1-1.xx&_nc_tp=1002&oh=951f388a9b6c21fddddf59b578b294c9&oe=5ECFFC2F","Dev","Ingé", "Celib", 23, molinet);
 //
 //			List<Personne> teamP = Arrays.asList(plaideauG, bozonG, molinetB);
 //
@@ -86,9 +86,9 @@ public class BackEndApplication {
 //
 //			evenementRepository.deleteAll();
 //
-//			Evenement event = new Evenement("Mariage", new Date("21/09/2027"), "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", plaideau);
-//			Evenement event2 = new Evenement("Suicide", new Date("21/09/2027"), "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", bozon);
-//			Evenement event3 = new Evenement("Rattrapage", new Date("21/09/2027"), "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", molinet);
+//			Evenement event = new Evenement("Mariage", "21/09/2027", "Chez Caro", "https://www.photo-up.fr/public/Medias/3-seances/mariage/vignettes/reportage-mariage.jpg", plaideau);
+//			Evenement event2 = new Evenement("Vacances", "21/09/2027", "Ski Week", "https://www.djuringa-juniors.fr/media/cache/Sejours_Colonie/Hiver/2018/p/e/permiere-colonie-de-vacances-ski_375x281.jpg", bozon);
+//			Evenement event3 = new Evenement("Rattrapage", "21/09/2027", "A CPE", "http://www.retraite-et-travail.com/wp-content/uploads/2019/02/403890.jpg", molinet);
 //
 //			evenementRepository.save(event);
 //			evenementRepository.save(event2);
