@@ -1,32 +1,18 @@
 package com.mamie.backend;
 
-import com.mamie.backend.model.Evenement;
-import com.mamie.backend.model.Famille;
-import com.mamie.backend.model.Personne;
-import com.mamie.backend.model.SexeEnum;
-import com.mamie.backend.repository.EvenementRepository;
-import com.mamie.backend.repository.FamilleRepository;
-import com.mamie.backend.repository.PersonneRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 @EnableNeo4jRepositories
 public class BackEndApplication {
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		SpringApplication.run(BackEndApplication.class, args);
-	}
-	
+        SpringApplication.run(BackEndApplication.class, args);
+    }
+
 //	@Bean
 //	CommandLineRunner demo(FamilleRepository familleRepository, PersonneRepository personneRepository, EvenementRepository evenementRepository) {
 //		return args -> {

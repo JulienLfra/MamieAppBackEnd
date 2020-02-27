@@ -8,7 +8,6 @@ import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @NodeEntity

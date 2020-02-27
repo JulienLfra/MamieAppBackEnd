@@ -7,14 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.constraints.Null;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,26 +23,26 @@ public class PersonneController {
 
     @GetMapping(path = "/mariage", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Personne> getMariage(@RequestParam String mail) {
-      return personneRepository.findConjoint(mail);
+        return personneRepository.findConjoint(mail);
     }
 
-    @GetMapping(path ="/siblings", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Personne> getSiblings(@RequestParam String mail){
+    @GetMapping(path = "/siblings", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getSiblings(@RequestParam String mail) {
 //        return personneRepository.findSiblings(mail);
         return null;
     }
 
-    @GetMapping(path ="/parents", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Personne> getParents(@RequestParam String mail){
+    @GetMapping(path = "/parents", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getParents(@RequestParam String mail) {
         return personneRepository.findParents(mail);
     }
 
-    @GetMapping(path ="/enfants", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Personne> getEnfants(@RequestParam String mail){
+    @GetMapping(path = "/enfants", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Personne> getEnfants(@RequestParam String mail) {
         return personneRepository.findEnfants(mail);
     }
 
-    @GetMapping(path="/genealogie", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/genealogie", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getGenealogie(@RequestParam String mail) {
         String arbre = "";
 
@@ -60,15 +54,15 @@ public class PersonneController {
 
 
         String userRoot = "{" +
-                "\"id :\" \"" + user.getId() +"\"," +
+                "\"id :\" \"" + user.getId() + "\"," +
 
-                "\"gender :\" \"" + user.getGender() +"\"," +
+                "\"gender :\" \"" + user.getGender() + "\"," +
 
                 "}";
 
         String lesPersonnes = "";
 
-        String objetContenantLesPersonnes = "[" + lesPersonnes +  "]";
+        String objetContenantLesPersonnes = "[" + lesPersonnes + "]";
 
         String jsonFinal = "{" + objetContenantLesPersonnes + "}";
 
@@ -87,13 +81,15 @@ public class PersonneController {
         return persons;
     }
 
-    @GetMapping(path = "/membresFamilleByNom", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/membresFamilleByNom", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<Personne> getMembresByFamily(@RequestParam String mail, @RequestParam String nomFamille) {
 
         return personneRepository.findByNomFamille(mail, nomFamille);
     }
 
-    @GetMapping(path = "/membresFamilleById", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/membresFamilleById", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<Personne> getMembresByFamily(@RequestParam int id) {
 
         return personneRepository.findById_Famille(id);
@@ -138,7 +134,7 @@ public class PersonneController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addPersonne(@RequestBody Personne personne) {
         personneRepository.save(personne);
-        List<Famille> familles =personne.getFamilles();
+        List<Famille> familles = personne.getFamilles();
         familles.forEach(famille -> famille.increaseNombreMembre());
     }
 
@@ -150,12 +146,10 @@ public class PersonneController {
         try {
             if (personne.getMail().isEmpty()) {
                 personneRepository.save(personne);
-                List<Famille> familles =personne.getFamilles();
+                List<Famille> familles = personne.getFamilles();
                 familles.forEach(famille -> famille.increaseNombreMembre());
             }
-        }
-
-        catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new RuntimeException(String.format("Personne vide , %s", e));
         }
     }
@@ -172,7 +166,7 @@ public class PersonneController {
 
         personneRepository.delete(personneToDelete);
 
-        List<Famille> familles =personne.getFamilles();
+        List<Famille> familles = personne.getFamilles();
         familles.forEach(famille -> famille.decreaseNombreMembre());
 
         if (isSaveInDataBase(personne)) {
