@@ -141,10 +141,9 @@ public class PersonneController {
 
     @PostMapping(path = "/personne")
     @ResponseStatus(HttpStatus.CREATED)
-//    @RequestHeader("Content-Type: application/json")
     public void addPostPersonne(@RequestBody Personne personne) {
         try {
-            if (personne.getMail().isEmpty()) {
+            if (!personne.getMail().isEmpty()) {
                 personneRepository.save(personne);
                 List<Famille> familles = personne.getFamilles();
                 familles.forEach(famille -> famille.increaseNombreMembre());

@@ -1,0 +1,30 @@
+before_script:
+- export MAVEN_HOME=/usr/local/apache-maven
+
+image: maven:3-jdk-8
+
+stages:
+  - build
+  - compile
+  - test
+  - verify
+
+
+build:
+  stage: build
+  tags:
+  - docker
+  script:
+  - mvn clean package
+
+test:
+  stage: test
+  script: mvn test
+
+compile:
+  stage: compile
+  script: mvn compile
+
+verify:
+  stage: verify
+  script: mvn verify
