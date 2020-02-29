@@ -54,7 +54,7 @@ public class FamilleController {
     public List<Famille> getFamillesMail(@RequestParam String mail) {
 
 
-        List<Famille> result = (List<Famille>) familleRepository.findByMail(mail);
+        List<Famille> result = familleRepository.findByMail(mail);
         if (result == null) {
             throw new ObtenirFamilleException(mail);
         }

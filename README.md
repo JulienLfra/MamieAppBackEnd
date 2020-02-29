@@ -1,7 +1,10 @@
 # Mamie Back-end
 
-Git commit 08/01/2020 - 11.25 AM 
-	Mise en place d'une base de données Neo4J avec une table Famille contenant 3 familles.
-
-Git commit 08/01/2020 - 3.15 PM 
-	Mise en place d'un RestController pour aller lire en base de données Neo4J le nom des familles présentes en base (données fictives ajoutées au démarrage)
+###% de coverage des tests
+            | Class %       | Method %      | Line % |
+            | ------------- |:-------------:|  -----:|
+controller  | 100% (3/3     | 84% (27/32)   | 88% (95/107) |
+exception   | 16% (1/6)     | 16% (1/6)     | 16% (2/12) |
+model       | 80% (4/5)     | 28% (20/71)   | 42% (69/162) |
+repository  | 100% (0/0)    | 100% (0/0)   | 100% (0/0) |
+service     | 100% (0/0)    | 50% (1/2)    | 75% (3/4) |

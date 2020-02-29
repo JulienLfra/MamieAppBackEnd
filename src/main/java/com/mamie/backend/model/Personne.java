@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonDeserialize(builder = Personne.PersonneBuilder.class)
 
-public class Personne implements Comparable<Personne>{
+public class Personne implements Comparable<Personne> {
 
     @Id
     @GeneratedValue

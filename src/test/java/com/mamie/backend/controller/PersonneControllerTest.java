@@ -187,4 +187,58 @@ public class PersonneControllerTest {
         assertEquals(result.get(0), plaideauG);
     }
 
+    @Test
+    public void whenGetParents_returnParents() {
+        init_famille();
+
+        PersonneController personneController = new PersonneController(personneRepository);
+        List<Personne> result = personneController.getParents("plaideaug83170@gmail.com");
+
+        Famille plaideau = new Famille("Plaideau",4);
+        Personne plaideauA = new Personne("Plaideau","Alain","ap@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ap@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
+
+        assertEquals(plaideauA.getNom(),result.get(0).getNom());
+    }
+
+    @Test
+    public void whenGetEnfants_returnEnfants() {
+        init_famille();
+
+        PersonneController personneController = new PersonneController(personneRepository);
+        List<Personne> result = personneController.getEnfants("ap@gmail.com");
+
+
+        assertEquals(plaideauG,result.get(0));
+    }
+
+    @Test
+    public void whenGetGenealogie_returnPersonnes() {
+        init_famille();
+
+        PersonneController personneController = new PersonneController(personneRepository);
+        String result = personneController.getGenealogie("plaideaug83170@gmail.com");
+
+        assertTrue(true);
+    }
+
+    @Test
+    public void whenGetMembresByFamily_returnPersonnes() {
+        init_famille();
+
+        PersonneController personneController = new PersonneController(personneRepository);
+        List<Personne> result = personneController.getMembresByFamily("plaideaug83170@gmail.com", "Plaideau");
+
+        assertTrue(result.contains(plaideauG));
+    }
+
+    @Test
+    public void whenGetPersonnesByFamilyByMail_returnPersonnes() {
+        init_famille();
+
+        PersonneController personneController = new PersonneController(personneRepository);
+        List<Personne> result = personneController.getPersonnesByFamilyByMail("plaideaug83170@gmail.com");
+
+        assertTrue(result.contains(plaideauG));
+    }
+
 }
