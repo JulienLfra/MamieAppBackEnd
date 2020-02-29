@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -43,19 +42,19 @@ public class EvenementController {
         return evenementRepository.findEvenementByMailUser(mail);
     }
 
-    @PutMapping(path ="/evenement")
+    @PutMapping(path = "/evenement")
     public void addEvenement(@RequestBody Evenement evenement) {
         evenementRepository.save(evenement);
     }
 
 
-    @PostMapping(path ="/evenement")
+    @PostMapping(path = "/evenement")
     public void addPostEvenement(@RequestBody Evenement evenement) {
         evenementRepository.save(evenement);
     }
 
 
-    @DeleteMapping(path ="/evenement")
+    @DeleteMapping(path = "/evenement")
     public void deleteEvenement(@RequestBody Evenement evenement) {
         evenementRepository.delete(evenement);
     }

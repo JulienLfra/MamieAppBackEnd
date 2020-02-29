@@ -43,7 +43,7 @@ public class FamilleController {
 
         List<Famille> famille = new ArrayList<>();
         Famille result = familleRepository.findByNom(nom);
-        if(result==null){
+        if (result == null) {
             throw new ObtenirFamilleException(nom);
         }
         famille.add(familleRepository.findByNom(nom));
@@ -54,8 +54,8 @@ public class FamilleController {
     public List<Famille> getFamillesMail(@RequestParam String mail) {
 
 
-        List<Famille> result = (List<Famille>) familleRepository.findByMail(mail);
-        if(result==null){
+        List<Famille> result = familleRepository.findByMail(mail);
+        if (result == null) {
             throw new ObtenirFamilleException(mail);
         }
         return result;
@@ -72,7 +72,6 @@ public class FamilleController {
     public void addFamille(@RequestBody Famille famille) {
         familleRepository.save(famille);
     }
-
 
 
     @DeleteMapping(path = "/famille")

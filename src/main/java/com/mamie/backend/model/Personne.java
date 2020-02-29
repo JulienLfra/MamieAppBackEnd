@@ -8,7 +8,6 @@ import org.neo4j.ogm.annotation.*;
 
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @NodeEntity
@@ -16,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonDeserialize(builder = Personne.PersonneBuilder.class)
 
-public class Personne {
+public class Personne implements Comparable<Personne> {
 
     @Id
     @GeneratedValue
@@ -263,8 +262,12 @@ public class Personne {
         this.gender = gender;
     }
 
+    @Override
+    public int compareTo(Personne o) {
+        return this.getNom().compareTo(o.nom);
+    }
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class PersonneBuilder {
-
     }
 }
