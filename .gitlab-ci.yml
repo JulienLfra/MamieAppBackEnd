@@ -5,28 +5,28 @@ image: maven:3-jdk-8
 
 stages:
   - build
-#  - compile
-#  - test
-#  - verify
+  - compile
+  - test
+  - verify
 #
 #
 build:
-  stage: build
-  script:
-    echo "La gitlab est pétée puisque je n'ai pas de VM neo4j qui tourne pour passer les tests de la CI"
-#  tags:
-#  - docker
+#  stage: build
 #  script:
-#  - mvn clean package
-#
-#test:
-#  stage: test
-#  script: mvn test
-#
-#compile:
-#  stage: compile
-#  script: mvn compile
-#
-#verify:
-#  stage: verify
-#  script: mvn verify
+#    echo "La gitlab est pétée puisque je n'ai pas de VM neo4j qui tourne pour passer les tests de la CI"
+  tags:
+  - docker
+  script:
+  - mvn clean package
+
+test:
+  stage: test
+  script: mvn test
+
+compile:
+  stage: compile
+  script: mvn compile
+
+verify:
+  stage: verify
+  script: mvn verify
