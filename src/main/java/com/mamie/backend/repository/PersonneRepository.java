@@ -29,6 +29,12 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
     @Query("MATCH (user:Personne) WHERE user.mail=~$mail SET user.longitude=$longitude, user.latitude=$latitude")
     void modifyPositionPersonne(@Param("mail") String mail, @Param("longitude") int longitude, @Param("latitude") int latitude);
 
+    @Query("MATCH (user1:Personne), (user2:Personne) WHERE user1.mail=$mail AND user2.mail=$mailBloque CREATE (user1)-[r:Block]->(user2)")
+    void bloquerPersonne(@Param("mail") String mail, @Param("mailBloque") String mailBloque);
+
+    @Query("MATCH (user1:Personne), (user2:Personne) WHERE user1.mail=$mail AND user2.mail=$mailDebloque MATCH (user1)-[r:Block]->(user2) DELETE r")
+    void debloquerPersonne(@Param("mail") String mail, @Param("mailDebloque") String mailDebloque);
+
     @Query("MATCH (user:Personne), (conjoint:Personne) WHERE user.mail=~$mail AND (user)-[:Mariage]-(conjoint) RETURN conjoint")
     List<Personne> findConjoint(@Param("mail") String mail);
 
@@ -47,4 +53,6 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
     @Query("MATCH (user:Personne), (enfant:Personne) WHERE user.mail=~$mail AND (user)<-[:Enfant_de]-(enfant) RETURN enfant")
     List<Personne> findEnfants(@Param("mail") String mail);
 
+    @Query("MATCH (userCourant:Personne), (userDistant:Personne) WHERE userCourant.mail=$mail1 AND userDistant.mail =$mail2 RETURN EXISTS ((userDistant)-[:Block]->(userCourant))")
+    boolean getBloquerByMail(@Param("mail1") String mail1, @Param("mail2") String mail2);
 }

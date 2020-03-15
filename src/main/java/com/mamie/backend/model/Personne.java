@@ -36,6 +36,7 @@ public class Personne implements Comparable<Personne> {
     private int age;
     private double longitude;
     private double latitude;
+    private boolean bloque;
     private SexeEnum gender;
 
     @Relationship(type = "IN", direction = Relationship.OUTGOING)
@@ -65,6 +66,7 @@ public class Personne implements Comparable<Personne> {
         this.age = age;
         this.gender = gender;
         this.familles.add(famille);
+        this.bloque = false;
     }
 
     public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, Famille famille, double longitude, double latitude) {
@@ -83,6 +85,7 @@ public class Personne implements Comparable<Personne> {
         this.familles.add(famille);
         this.longitude = longitude;
         this.latitude = latitude;
+        this.bloque = false;
     }
 
     public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles) {
@@ -99,6 +102,7 @@ public class Personne implements Comparable<Personne> {
         this.age = age;
         this.gender = gender;
         this.familles.addAll(familles);
+        this.bloque = false;
     }
 
     public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux) {
@@ -118,6 +122,7 @@ public class Personne implements Comparable<Personne> {
         this.sibling = sibling;
         this.parents = parents;
         this.epoux = epoux;
+        this.bloque = false;
     }
 
     public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, Personne epoux, double longitude, double latitude) {
@@ -139,6 +144,7 @@ public class Personne implements Comparable<Personne> {
         this.epoux = epoux;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.bloque = false;
     }
 
     public Personne(String nom, String prenom, String mail) {
@@ -317,6 +323,14 @@ public class Personne implements Comparable<Personne> {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public boolean isBloque() {
+        return bloque;
+    }
+
+    public void setBloque(boolean bloque) {
+        this.bloque = bloque;
     }
 
     @Override

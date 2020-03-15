@@ -91,8 +91,21 @@ public class PersonneController {
     @GetMapping(path = "/membresFamilleById", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<Personne> getMembresByFamily(@RequestParam int id) {
-
         return personneRepository.findById_Famille(id);
+    }
+
+    @GetMapping(path = "/getMembresByFamilyAndMail", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Personne> getMembresByFamilyAndMail(@RequestParam int id, @RequestParam String mail) {
+
+        List<Personne> persons = personneRepository.findById_Famille(id);
+        persons.forEach(personne -> {
+            if(personneRepository.getBloquerByMail(mail,personne.getMail())) {
+                //Est bloqué
+                personne.setBloque(true);
+            }
+        });
+        return persons;
     }
 
 
@@ -158,6 +171,24 @@ public class PersonneController {
         }
     }
 
+    @GetMapping(path = "/getBloquerByMail", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public boolean getBloquerByMail(@RequestParam String mail1, @RequestParam String mail2) {
+        if(personneRepository.getBloquerByMail(mail1, mail2)) return true;
+        else return false;
+    }
+
+    @PostMapping(path = "/bloquerByMail")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void bloquerByMail(@RequestParam String mail, @RequestParam String mailABloquer) {
+        personneRepository.bloquerPersonne(mail, mailABloquer);
+    }
+
+    @PostMapping(path = "/debloquerByMail")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void debloquerByMail(@RequestParam String mail, @RequestParam String mailADebloquer) {
+        personneRepository.debloquerPersonne(mail, mailADebloquer);
+    }
 
     @DeleteMapping(path = "/personne")
     @ResponseStatus(HttpStatus.NO_CONTENT)
