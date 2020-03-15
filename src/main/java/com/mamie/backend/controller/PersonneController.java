@@ -124,9 +124,14 @@ public class PersonneController {
 
     @PutMapping(path = "/changerInfosPersonne", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateInfosPersonneByMail(@RequestParam String mail, @RequestParam String personne) {
+    public void updateInfosPersonneByMail(@RequestParam Personne personne) {
+        personneRepository.modifyInfosPersonne(personne);
+    }
 
-//        personneRepository.modifyInfosPersonne(personne);
+    @PutMapping(path = "/changerPositionPersonne", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updatePositionPersonneByMail(@RequestParam String mail, @RequestParam int latitude, @RequestParam int longitude) {
+        personneRepository.modifyPositionPersonne(mail, longitude, latitude);
     }
 
 

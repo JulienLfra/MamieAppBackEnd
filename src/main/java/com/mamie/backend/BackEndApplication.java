@@ -56,19 +56,19 @@ public class BackEndApplication {
 //			GPlaideau.add(plaideau);
 //			GPlaideau.add(bozon);
 //
-//			Personne plaideauA = new Personne("Plaideau","Alain","ap@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ap@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
-//			Personne plaideauM = new Personne("Plaideau","Murielle","mp@gmail.com", "21/09/1996", SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/mp@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
+//			Personne plaideauA = new Personne("Plaideau","Alain","ap@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ap@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau, 2.3488, 48.8534);
+//			Personne plaideauM = new Personne("Plaideau","Murielle","mp@gmail.com", "21/09/1996", SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/mp@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau, 2.3488, 48.8534);
 //			List<Personne> parentsPlaideau = new ArrayList<>();
 //			parentsPlaideau.add(plaideauA);
 //			parentsPlaideau.add(plaideauM);
-//			Personne plaideauE = new Personne("Plaideau","Eleonore","ep@gmail.com", "21/09/1996", SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ep@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau);
+//			Personne plaideauE = new Personne("Plaideau","Eleonore","ep@gmail.com", "21/09/1996", SexeEnum.female, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/ep@gmail.com.png","Dev","Ingé", "Celib", 23, plaideau, 2.3488, 48.8534);
 //			List<Personne> sibling = new ArrayList<>();
 //			sibling.add(plaideauE);
 //
-//			Personne bozonG = new Personne("Bozon","Guillaume","gbozon@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/gbozon@gmail.com.png","Dev","Ingé", "Celib", 23, bozon);
-//			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/plaideaug83170@gmail.com.png","Dev","Ingé", "Celib", 23, GPlaideau,sibling,parentsPlaideau,bozonG);
+//			Personne bozonG = new Personne("Bozon","Guillaume","gbozon@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/gbozon@gmail.com.png","Dev","Ingé", "Celib", 23, bozon, 2.3488, 48.8534);
+//			Personne plaideauG = new Personne("Plaideau","Guillaume","plaideaug83170@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "http://benjamin.molinet.free.fr/projetMamie/medias/plaideaug83170@gmail.com.png","Dev","Ingé", "Celib", 23, GPlaideau,sibling,parentsPlaideau,bozonG, 2.3488, 48.8534);
 //
-//			Personne molinetB = new Personne("Molinet","Benjamin","bmolinet@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-9/p720x720/64219237_2511438135566953_6095685978989527040_o.jpg?_nc_cat=106&_nc_ohc=BK4j5MPhWsoAX_dGLal&_nc_ht=scontent-cdt1-1.xx&_nc_tp=1002&oh=951f388a9b6c21fddddf59b578b294c9&oe=5ECFFC2F","Dev","Ingé", "Celib", 23, molinet);
+//			Personne molinetB = new Personne("Molinet","Benjamin","bmolinet@gmail.com", "21/09/1996", SexeEnum.male, "Lyon", "France", "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-9/p720x720/64219237_2511438135566953_6095685978989527040_o.jpg?_nc_cat=106&_nc_ohc=BK4j5MPhWsoAX_dGLal&_nc_ht=scontent-cdt1-1.xx&_nc_tp=1002&oh=951f388a9b6c21fddddf59b578b294c9&oe=5ECFFC2F","Dev","Ingé", "Celib", 23, molinet, 2.3488, 48.8534);
 //
 //			List<Personne> teamP = Arrays.asList(plaideauG, bozonG, molinetB);
 //
@@ -96,6 +96,4 @@ public class BackEndApplication {
 //			System.out.println(evenementRepository.findAll());
 //		};
 //	}
-
-
 }
