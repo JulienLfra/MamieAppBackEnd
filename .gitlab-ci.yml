@@ -11,7 +11,7 @@ stages:
 #
 #
 build:
-#  stage: build
+  stage: build
 #  script:
 #    echo "La gitlab est pétée puisque je n'ai pas de VM neo4j qui tourne pour passer les tests de la CI"
   tags:

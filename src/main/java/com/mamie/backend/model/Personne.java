@@ -37,6 +37,7 @@ public class Personne implements Comparable<Personne> {
     private double longitude;
     private double latitude;
     private boolean bloque;
+    private boolean Abloque;
     private SexeEnum gender;
 
     @Relationship(type = "IN", direction = Relationship.OUTGOING)
@@ -331,6 +332,14 @@ public class Personne implements Comparable<Personne> {
 
     public void setBloque(boolean bloque) {
         this.bloque = bloque;
+    }
+
+    public boolean isAbloque() {
+        return Abloque;
+    }
+
+    public void setAbloque(boolean abloque) {
+        Abloque = abloque;
     }
 
     @Override
