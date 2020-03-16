@@ -100,6 +100,20 @@ public class PersonneController {
 
         List<Personne> persons = personneRepository.findById_Famille(id);
         persons.forEach(personne -> {
+            if(personneRepository.getABloqueByMail(mail,personne.getMail())) {
+                //Est bloqué
+                personne.setAbloque(true);
+            }
+        });
+        return persons;
+    }
+
+    @GetMapping(path = "/getMembresByFamilyAndMailAppMobile", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Personne> getMembresByFamilyAndMailAppMobile(@RequestParam int id, @RequestParam String mail) {
+
+        List<Personne> persons = personneRepository.findById_Famille(id);
+        persons.forEach(personne -> {
             if(personneRepository.getBloquerByMail(mail,personne.getMail())) {
                 //Est bloqué
                 personne.setBloque(true);
@@ -107,7 +121,6 @@ public class PersonneController {
         });
         return persons;
     }
-
 
     @GetMapping(path = "/personneMail", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)

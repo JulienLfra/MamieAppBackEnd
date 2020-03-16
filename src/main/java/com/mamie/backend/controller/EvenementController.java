@@ -42,14 +42,26 @@ public class EvenementController {
         return evenementRepository.findEvenementByMailUser(mail);
     }
 
-    @PutMapping(path = "/evenement")
-    public void addEvenement(@RequestBody Evenement evenement) {
+    @PutMapping(path = "/evenement", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+    public void addEvenement(@RequestBody Evenement evenementRecu) {
+        Evenement evenement = new Evenement();
+        evenement.setDate(evenementRecu.getDate());
+        evenement.setNom(evenementRecu.getNom());
+        evenement.setFamille(evenementRecu.getFamille());
+        evenement.setLieu(evenementRecu.getLieu());
+        evenement.setPhoto(evenementRecu.getPhoto());
         evenementRepository.save(evenement);
     }
 
 
-    @PostMapping(path = "/evenement")
-    public void addPostEvenement(@RequestBody Evenement evenement) {
+    @PostMapping(path = "/evenement", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+    public void addPostEvenement(@RequestBody Evenement evenementRecu) {
+        Evenement evenement = new Evenement();
+        evenement.setNom(evenementRecu.getNom());
+        evenement.setDate(evenementRecu.getDate());
+        evenement.setFamille(evenementRecu.getFamille());
+        evenement.setLieu(evenementRecu.getLieu());
+        evenement.setPhoto(evenementRecu.getPhoto());
         evenementRepository.save(evenement);
     }
 

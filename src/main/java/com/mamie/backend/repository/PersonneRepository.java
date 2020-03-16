@@ -55,4 +55,7 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
 
     @Query("MATCH (userCourant:Personne), (userDistant:Personne) WHERE userCourant.mail=$mail1 AND userDistant.mail =$mail2 RETURN EXISTS ((userDistant)-[:Block]->(userCourant))")
     boolean getBloquerByMail(@Param("mail1") String mail1, @Param("mail2") String mail2);
+
+    @Query("MATCH (userCourant:Personne), (userDistant:Personne) WHERE userCourant.mail=$mail1 AND userDistant.mail =$mail2 RETURN EXISTS ((userCourant)-[:Block]->(userDistant))")
+    boolean getABloqueByMail(@Param("mail1") String mail1, @Param("mail2") String mail2);
 }

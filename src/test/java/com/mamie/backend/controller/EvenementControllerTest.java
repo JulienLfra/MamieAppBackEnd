@@ -91,7 +91,9 @@ public class EvenementControllerTest {
 
         List<Evenement> result = evenementController.getEvenements();
 
-        assertEquals(evenement2, result.get(0));
+        assertEquals(evenement2.getNom(), result.get(0).getNom());
+        assertEquals(evenement2.getDate(), result.get(0).getDate());
+        assertEquals(evenement2.getLieu(), result.get(0).getLieu());
     }
 
     @Test
@@ -103,7 +105,9 @@ public class EvenementControllerTest {
 
         List<Evenement> result = evenementController.getEvenements();
 
-        assertEquals(evenement2, result.get(0));
+        assertEquals(evenement2.getNom(), result.get(0).getNom());
+        assertEquals(evenement2.getDate(), result.get(0).getDate());
+        assertEquals(evenement2.getLieu(), result.get(0).getLieu());
     }
 
     @Test
@@ -115,7 +119,9 @@ public class EvenementControllerTest {
 
         List<Evenement> result = evenementController.getEvenements();
 
-        assertEquals(evenement2, result.get(0));
+        assertEquals(evenement2.getNom(), result.get(0).getNom());
+        assertEquals(evenement2.getDate(), result.get(0).getDate());
+        assertEquals(evenement2.getLieu(), result.get(0).getLieu());
 
         evenementController.deleteEvenement(evenement2);
 
