@@ -2,6 +2,7 @@ package com.mamie.backend.controller;
 
 import com.mamie.backend.model.Famille;
 import com.mamie.backend.model.Personne;
+import com.mamie.backend.model.PersonneGenealogique;
 import com.mamie.backend.model.SexeEnum;
 import com.mamie.backend.repository.EvenementRepository;
 import com.mamie.backend.repository.FamilleRepository;
@@ -216,7 +217,7 @@ public class PersonneControllerTest {
         init_famille();
 
         PersonneController personneController = new PersonneController(personneRepository);
-        String result = personneController.getGenealogie("plaideaug83170@gmail.com");
+        List<PersonneGenealogique> result = personneController.getGenealogie("plaideaug83170@gmail.com");
 
         assertTrue(true);
     }

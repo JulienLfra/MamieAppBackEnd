@@ -1,14 +1,18 @@
 package com.mamie.backend.controller;
 
 import com.mamie.backend.model.Famille;
+import com.mamie.backend.model.IdGenealogique;
 import com.mamie.backend.model.Personne;
+import com.mamie.backend.model.PersonneGenealogique;
 import com.mamie.backend.repository.PersonneRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -43,18 +47,173 @@ public class PersonneController {
     }
 
     @GetMapping(path = "/genealogie", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getGenealogie(@RequestParam String mail) {
-        String arbre = "";
+    public List<PersonneGenealogique> getGenealogie(@RequestParam String mail) {
+
+        List<PersonneGenealogique> result = new ArrayList<>();
 
         Personne user = personneRepository.findByMail(mail);
-        List<Personne> parents = personneRepository.findParents(mail);
-        List<Personne> siblings = personneRepository.findSiblings(mail);
-        List<Personne> spouses = personneRepository.findConjoint(mail);
-        List<Personne> children = personneRepository.findEnfants(mail);
+        List<Personne> parentsUserG = personneRepository.findParents(mail);
+        List<Personne> siblingsUserG = personneRepository.findSiblings(mail);
+        List<Personne> spousesUserG = personneRepository.findConjoint(mail);
+        List<Personne> childrenUserG = personneRepository.findEnfants(mail);
 
 
+        //!!!!!CREATION USER COURANT!!!!
 
-        return arbre;
+        Set<IdGenealogique> idParentsUserG = new HashSet<>();
+        Set<IdGenealogique> idSiblingsUserG = new HashSet<>();
+        Set<IdGenealogique> idSpousesUserG = new HashSet<>();
+        Set<IdGenealogique> idChildrenUserG = new HashSet<>();
+        Set<IdGenealogique> listVide = new HashSet<>();
+
+        if (!parentsUserG.isEmpty()) {
+            for (Personne p : parentsUserG) {
+                idParentsUserG.add(new IdGenealogique(p.getId().toString()));
+            }
+        }
+
+        if (!siblingsUserG.isEmpty()) {
+            for (Personne p : siblingsUserG) {
+                idSiblingsUserG.add(new IdGenealogique(p.getId().toString()));
+            }
+        }
+
+        if (!spousesUserG.isEmpty()) {
+            for (Personne p : spousesUserG) {
+                idSpousesUserG.add(new IdGenealogique(p.getId().toString()));
+            }
+        }
+
+        if (!childrenUserG.isEmpty()) {
+            for (Personne p : childrenUserG) {
+                idChildrenUserG.add(new IdGenealogique(p.getId().toString()));
+            }
+        }
+
+        PersonneGenealogique userG = new PersonneGenealogique(user.getId().toString(),
+                user.getGender().toString(),
+                user.getPrenom() + " " + user.getNom(),
+                idParentsUserG,
+                idSiblingsUserG,
+                idSpousesUserG,
+                idChildrenUserG
+        );
+
+        System.out.println(userG);
+        result.add(userG);
+
+
+        //!!!!!CREATION Parents User Courant!!!!
+
+        if (!parentsUserG.isEmpty()) {
+            for (Personne p : parentsUserG) {
+                Set<IdGenealogique> idSpousesParents = new HashSet<>();
+                Set<IdGenealogique> idChildrenParents = new HashSet<>();
+
+                List<Personne> childrenParents = personneRepository.findEnfants(p.getMail());
+
+                if (!childrenParents.isEmpty()) {
+                    for (Personne p2 : childrenParents) {
+                        idChildrenParents.add(new IdGenealogique(p2.getId().toString()));
+                    }
+                } else idChildrenParents = listVide;
+
+                List<Personne> spousesParents = personneRepository.findConjoint(p.getMail());
+
+                if (!spousesParents.isEmpty()) {
+                    for (Personne p2 : spousesParents) {
+                        idSpousesParents.add(new IdGenealogique(p2.getId().toString()));
+                    }
+                } else idSpousesParents = listVide;
+
+
+                PersonneGenealogique parent = new PersonneGenealogique(
+                        p.getId().toString(),
+                        p.getGender().toString(),
+                        p.getPrenom() + " " + p.getNom(),
+                        listVide,
+                        listVide,
+                        idSpousesParents,
+                        idChildrenParents
+                );
+
+                System.out.println(parent);
+                result.add(parent);
+            }
+
+            //!!!!!CREATION Frere/Soeur User Courant!!!!
+
+
+            if (!siblingsUserG.isEmpty()) {
+                for (Personne p : siblingsUserG) {
+                    Set<IdGenealogique> idParentsSibling = new HashSet<>();
+                    Set<IdGenealogique> idSiblingsSibling = new HashSet<>();
+
+                    List<Personne> parentsSibling = personneRepository.findParents(user.getMail());
+
+                    if (!parentsSibling.isEmpty()) {
+                        for (Personne p2 : parentsSibling) {
+                            idParentsSibling.add(new IdGenealogique(p2.getId().toString()));
+                        }
+                    } else idParentsSibling = listVide;
+
+                    List<Personne> siblingsSibling = personneRepository.findSiblings(p.getMail());
+
+                    if (!siblingsSibling.isEmpty()) {
+                        for (Personne p2 : siblingsSibling) {
+                            idSiblingsSibling.add(new IdGenealogique(p2.getId().toString()));
+                        }
+                    } else idSiblingsSibling = listVide;
+
+                    PersonneGenealogique sibling = new PersonneGenealogique(
+                            p.getId().toString(),
+                            p.getGender().toString(),
+                            p.getPrenom() + " " + p.getNom(),
+                            idParentsSibling,
+                            idSiblingsSibling,
+                            listVide,
+                            listVide
+                    );
+
+                    System.out.println(sibling);
+                    result.add(sibling);
+                }
+
+            }
+
+            //!!!!!CREATION Epouse User Courant!!!!
+
+            if (!spousesUserG.isEmpty()) {
+                for (Personne p : spousesUserG) {
+                    Set<IdGenealogique> idSpousesSpouse = new HashSet<>();
+
+                    List<Personne> spousesSpouse = personneRepository.findConjoint(p.getMail());
+
+                    if (!spousesSpouse.isEmpty()) {
+                        for (Personne p2 : spousesSpouse) {
+                            idSpousesSpouse.add(new IdGenealogique(p2.getId().toString()));
+                        }
+                    } else idSpousesSpouse = listVide;
+
+                    PersonneGenealogique spouse = new PersonneGenealogique(
+                            p.getId().toString(),
+                            p.getGender().toString(),
+                            p.getPrenom() + " " + p.getNom(),
+                            listVide,
+                            listVide,
+                            idSpousesSpouse,
+                            listVide
+                    );
+
+                    System.out.println(spouse);
+                    result.add(spouse);
+                }
+            }
+
+        }
+
+
+        return result;
     }
 
     @GetMapping(path = "/personnes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -88,7 +247,7 @@ public class PersonneController {
 
         List<Personne> persons = personneRepository.findById_Famille(id);
         persons.forEach(personne -> {
-            if(personneRepository.getABloqueByMail(mail,personne.getMail())) {
+            if (personneRepository.getABloqueByMail(mail, personne.getMail())) {
                 //Est bloqué
                 personne.setAbloque(true);
             }
@@ -102,7 +261,7 @@ public class PersonneController {
 
         List<Personne> persons = personneRepository.findById_Famille(id);
         persons.forEach(personne -> {
-            if(personneRepository.getBloquerByMail(mail,personne.getMail())) {
+            if (personneRepository.getBloquerByMail(mail, personne.getMail())) {
                 //Est bloqué
                 personne.setBloque(true);
             }
@@ -175,7 +334,7 @@ public class PersonneController {
     @GetMapping(path = "/getBloquerByMail", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public boolean getBloquerByMail(@RequestParam String mail1, @RequestParam String mail2) {
-        if(personneRepository.getBloquerByMail(mail1, mail2)) return true;
+        if (personneRepository.getBloquerByMail(mail1, mail2)) return true;
         else return false;
     }
 
