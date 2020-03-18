@@ -148,6 +148,27 @@ public class Personne implements Comparable<Personne> {
         this.bloque = false;
     }
 
+    public Personne(String nom, String prenom, @Email String mail, String dateDeNaissance, SexeEnum gender, String ville, String pays, String photo, String profession, String diplome, String statut, int age, List<Famille> familles, List<Personne> sibling, List<Personne> parents, double longitude, double latitude) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.dateDeNaissance = dateDeNaissance;
+        this.ville = ville;
+        this.pays = pays;
+        this.photo = photo;
+        this.profession = profession;
+        this.diplome = diplome;
+        this.statut = statut;
+        this.age = age;
+        this.gender = gender;
+        this.familles = familles;
+        this.sibling = sibling;
+        this.parents = parents;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.bloque = false;
+    }
+
     public Personne(String nom, String prenom, String mail) {
         this.nom = nom;
         this.prenom = prenom;
