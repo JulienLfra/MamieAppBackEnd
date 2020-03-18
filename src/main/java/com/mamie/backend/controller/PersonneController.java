@@ -53,18 +53,6 @@ public class PersonneController {
         List<Personne> children = personneRepository.findEnfants(mail);
 
 
-        String userRoot = "{" +
-                "\"id :\" \"" + user.getId() + "\"," +
-
-                "\"gender :\" \"" + user.getGender() + "\"," +
-
-                "}";
-
-        String lesPersonnes = "";
-
-        String objetContenantLesPersonnes = "[" + lesPersonnes + "]";
-
-        String jsonFinal = "{" + objetContenantLesPersonnes + "}";
 
         return arbre;
     }
@@ -156,7 +144,7 @@ public class PersonneController {
 
     @PutMapping(path = "/changerPositionPersonne", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updatePositionPersonneByMail(@RequestParam String mail, @RequestParam int latitude, @RequestParam int longitude) {
+    public void updatePositionPersonneByMail(@RequestParam String mail, @RequestParam double latitude, @RequestParam double longitude) {
         personneRepository.modifyPositionPersonne(mail, longitude, latitude);
     }
 

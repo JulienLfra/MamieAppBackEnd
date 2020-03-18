@@ -27,7 +27,7 @@ public interface PersonneRepository extends Neo4jRepository<Personne, Long> {
     void modifyInfosPersonne(Personne personne);
 
     @Query("MATCH (user:Personne) WHERE user.mail=~$mail SET user.longitude=$longitude, user.latitude=$latitude")
-    void modifyPositionPersonne(@Param("mail") String mail, @Param("longitude") int longitude, @Param("latitude") int latitude);
+    void modifyPositionPersonne(@Param("mail") String mail, @Param("longitude") double longitude, @Param("latitude") double latitude);
 
     @Query("MATCH (user1:Personne), (user2:Personne) WHERE user1.mail=$mail AND user2.mail=$mailBloque CREATE (user1)-[r:Block]->(user2)")
     void bloquerPersonne(@Param("mail") String mail, @Param("mailBloque") String mailBloque);
